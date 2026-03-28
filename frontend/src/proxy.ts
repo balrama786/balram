@@ -1,0 +1,39 @@
+import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
+import { pagesOptions } from "./app/api/auth/[...nextauth]/pagesOptions";
+
+export default withAuth(
+  function proxy(req: NextRequestWithAuth) {
+    const { pathname } = req.nextUrl;
+    const isAuthenticated = Boolean(req.nextauth.token);
+
+    if (pathname === "/") {
+      const destination = isAuthenticated ? "/dashboard" : "/landing";
+      return NextResponse.redirect(new URL(destination, req.url));
+    }
+    if (pathname.startsWith("/auth") && isAuthenticated) {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        const { pathname } = req.nextUrl;
+        const isGuestAllowed =
+          pathname.startsWith("/landing") || pathname.startsWith("/auth");
+        return Boolean(token) || isGuestAllowed;
+      },
+    },
+    pages: {
+      ...pagesOptions,
+    },
+  }
+);
+
+export const config = {
+  matcher: [
+    "/((?!api/|_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|woff2?|ttf|otf|css|js)).*)",
+  ],
+};

@@ -1,0 +1,226 @@
+{
+    "info": {
+        "_postman_id": "baileys-whatsapp-test",
+        "name": "Baileys WhatsApp Integration",
+        "description": "Collection to test the Baileys QR code connection and unified WhatsApp APIs.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Connect Baileys Instance",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{YOUR_JWT_TOKEN}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"provider\": \"baileys\",\n    \"instance_name\": \"My Baileys Test\"\n}"
+                },
+                "url": {
+                    "raw": "{{BASE_URL}}/api/whatsapp/connect",
+                    "host": [
+                        "{{BASE_URL}}"
+                    ],
+                    "path": [
+                        "api",
+                        "whatsapp",
+                        "connect"
+                    ]
+                },
+                "description": "Initializes a Baileys instance. Returns a `waba_id` which is needed for the QR code."
+            },
+            "response": []
+        },
+        {
+            "name": "2. Get Baileys QR Code",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{YOUR_JWT_TOKEN}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{BASE_URL}}/api/whatsapp/baileys/qrcode/:wabaId",
+                    "host": [
+                        "{{BASE_URL}}"
+                    ],
+                    "path": [
+                        "api",
+                        "whatsapp",
+                        "baileys",
+                        "qrcode",
+                        ":wabaId"
+                    ],
+                    "variable": [
+                        {
+                            "key": "wabaId",
+                            "value": "REPLACE_WITH_WABA_ID"
+                        }
+                    ]
+                },
+                "description": "Fetches the base64 QR code for the specified Baileys instance. Scan this with your WhatsApp app."
+            },
+            "response": []
+        },
+        {
+            "name": "3. Send Text Message (Baileys)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{YOUR_JWT_TOKEN}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"providerType\": \"baileys\",\n    \"connectionId\": \"REPLACE_WITH_WABA_ID\",\n    \"recipientNumber\": \"91XXXXXXXXXX\",\n    \"messageText\": \"Hello from Baileys!\",\n    \"messageType\": \"text\"\n}"
+                },
+                "url": {
+                    "raw": "{{BASE_URL}}/api/whatsapp/send",
+                    "host": [
+                        "{{BASE_URL}}"
+                    ],
+                    "path": [
+                        "api",
+                        "whatsapp",
+                        "send"
+                    ]
+                },
+                "description": "Sends a text message using the Baileys provider."
+            },
+            "response": []
+        },
+        {
+            "name": "4. Send Image Message (Baileys)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{YOUR_JWT_TOKEN}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"providerType\": \"baileys\",\n    \"connectionId\": \"REPLACE_WITH_WABA_ID\",\n    \"recipientNumber\": \"91XXXXXXXXXX\",\n    \"messageText\": \"Check out this image\",\n    \"messageType\": \"image\",\n    \"mediaUrl\": \"https://example.com/image.jpg\"\n}"
+                },
+                "url": {
+                    "raw": "{{BASE_URL}}/api/whatsapp/send",
+                    "host": [
+                        "{{BASE_URL}}"
+                    ],
+                    "path": [
+                        "api",
+                        "whatsapp",
+                        "send"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "5. Get Recent Chats",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{YOUR_JWT_TOKEN}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{BASE_URL}}/api/whatsapp/recent-chats?provider=baileys",
+                    "host": [
+                        "{{BASE_URL}}"
+                    ],
+                    "path": [
+                        "api",
+                        "whatsapp",
+                        "recent-chats"
+                    ],
+                    "query": [
+                        {
+                            "key": "provider",
+                            "value": "baileys"
+                        }
+                    ]
+                },
+                "description": "Fetches recent chats for the Baileys provider."
+            },
+            "response": []
+        },
+        {
+            "name": "6. Get Messages (Chat History)",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{YOUR_JWT_TOKEN}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{BASE_URL}}/api/whatsapp/messages?contactNumber=91XXXXXXXXXX&providerType=baileys",
+                    "host": [
+                        "{{BASE_URL}}"
+                    ],
+                    "path": [
+                        "api",
+                        "whatsapp",
+                        "messages"
+                    ],
+                    "query": [
+                        {
+                            "key": "contactNumber",
+                            "value": "91XXXXXXXXXX"
+                        },
+                        {
+                            "key": "providerType",
+                            "value": "baileys"
+                        }
+                    ]
+                },
+                "description": "Fetches message history for a specific contact on Baileys."
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "BASE_URL",
+            "value": "http://localhost:3000"
+        },
+        {
+            "key": "YOUR_JWT_TOKEN",
+            "value": "your_token_here"
+        }
+    ]
+}

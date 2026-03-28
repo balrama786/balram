@@ -1,0 +1,38 @@
+export type DayStatus = "opened" | "closed";
+
+export interface TimeRange {
+  from: string;
+  to: string;
+}
+
+export interface DaySchedule {
+  status: DayStatus;
+  hours: TimeRange[];
+}
+
+export type WeekDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+
+export interface WorkingHoursPayload {
+  waba_id: string;
+  is_holiday_mode: boolean;
+  monday?: DaySchedule;
+  tuesday?: DaySchedule;
+  wednesday?: DaySchedule;
+  thursday?: DaySchedule;
+  friday?: DaySchedule;
+  saturday?: DaySchedule;
+  sunday?: DaySchedule;
+}
+
+export interface WorkingHoursData extends WorkingHoursPayload {
+  _id: string;
+  user_id: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface WorkingHoursResponse {
+  success: boolean;
+  message?: string;
+  data: WorkingHoursData;
+}

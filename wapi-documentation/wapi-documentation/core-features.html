@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wapi - NextJs Document" />
+    <meta name="keywords" content="Wapi - NextJs Document" />
+    <meta name="author" content="pixelstrap" />
+    <link rel="icon" href="assets/images/favicon.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.svg"
+      type="image/x-icon"
+    />
+    <title>Introduction - Wapi documentation</title>
+    <!-- Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
+    <!-- Feather icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/feather-icon.css"
+    />
+    <!-- Remix icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/remixicon.css"
+    />
+    <!-- Remix icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/remixicon.css"
+    />
+    <!-- animate-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/animate.css"
+    />
+    <!-- Bootstrap css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/bootstrap.css"
+    />
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- Global Search css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/global-search.css"
+    />
+  </head>
+
+  <body>
+    <!-- tap on top starts-->
+    <a href="javascript:void(0)" class="sidebar-overlay"></a>
+    <div class="tap-top">
+      <i data-feather="chevrons-up"></i>
+      <p>Top</p>
+    </div>
+    <!-- tap on tap ends-->
+    <div>
+      <div class="home-section">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container custom-container">
+            <div class="main-menu">
+              <button
+                class="navbar-toggler collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fa fa-bars"> </i>
+              </button>
+              <a class="navbar-brand" href="index.html">
+                <img src="assets/images/logo/logo.svg" alt=""
+              /></a>
+              <div>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav menu">
+                    <li class="nav-item active">
+                      <a
+                        class="nav-link"
+                        href="#"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Purchase</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://support.pixelstrap.com/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Support</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-frontend-live.vercel.app/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Frontend</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-admin-live.vercel.app"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Admin
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ul class="nav-right">
+                <li>
+                  <div class="btn-group">
+                    <a
+                      class="decrease btn btn-doc"
+                      href="#"
+                      title="Decrease font size"
+                      >A-</a
+                    ><a
+                      class="reset btn btn-doc"
+                      href="#"
+                      title="Default font size"
+                      >A</a
+                    ><a
+                      class="increase btn btn-doc"
+                      href="#"
+                      title="Increase font size"
+                      >A+</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a class="btn btn-light mode" href="#" title="Dark"
+                    ><i class="fa fa-moon-o"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container custom-container">
+          <div class="document">Wapi documentation</div>
+          <div class="top-heading">
+            <h2>Powerful WhatsApp marketing and automation platform</h2>
+            <div class="home-search">
+              <input type="search" name="text" placeholder="Search..." />
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container custom-container" id="mainRightNavbar">
+      <div class="document-main">
+        <div class="left-sidebar">
+          <div class="card">
+            <div class="card-body">
+              <aside>
+                <button class="btn button-close">
+                  <span>Close</span>
+                  <i data-feather="x"></i>
+                </button>
+                <ul class="list-unstyled nav-sidebar doc-nav">
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="index.html">Introduction</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="prerequisite.html"
+                        >Prerequisite</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Wapi Installation
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Overview</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="frontend-installation.html" class="nav-link"
+                          >Frontend Installation</a
+                        >
+                      </li>
+                      <li class="nav-item menu">
+                        <div class="title">
+                          <a class="nav-link" href="#!"
+                            >Backend Installation
+                            <i class="fa fa-angle-down" aria-hidden="true"></i
+                          ></a>
+                        </div>
+                        <ul class="sub-menu nested-sub-menu">
+                          <li class="nav-item">
+                            <a href="local-server.html" class="nav-link"
+                              >Local Server</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a href="live-server.html" class="nav-link"
+                              >Live Server</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Deployment
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="cpanel.html" class="nav-link">C-panel</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="virtual-server.html" class="nav-link"
+                          >Virtual Private Server</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="vercel.html" class="nav-link">Vercel</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="core-features.html"
+                        >Core Features</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="advanced-features.html"
+                        >Advanced Features</a
+                      >
+                    </div>
+                  </li>
+
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Admin Guide
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link"
+                          >Admin Dashboard</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-plan-management.html" class="nav-link"
+                          >Plan Creation & Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-user-subscriptions.html" class="nav-link"
+                          >User Subscriptions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-payment-transactions.html"
+                          class="nav-link"
+                          >Payment Transactions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-manage-users.html" class="nav-link"
+                          >Manage Users</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-manage-faqs.html" class="nav-link"
+                          >Manage FAQs</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-manage-testimonials.html"
+                          class="nav-link"
+                          >Manage Testimonials</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-landing-page.html" class="nav-link"
+                          >Manage Landing Page</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-template-library.html" class="nav-link"
+                          >Template Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-payment-gateways.html" class="nav-link"
+                          >Payment Gateways (Stripe & Razorpay)</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-settings.html" class="nav-link"
+                          >Platform Settings & Keys</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-ai-models.html" class="nav-link"
+                          >AI Models</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-contact-inquiries.html"
+                          class="nav-link"
+                          >Contact Inquiries</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                                    <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Frontend
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="frontend-dashboard.html" class="nav-link"
+                          >Dashboard</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="chat-inbox.html" class="nav-link"
+                          >Chat Inbox</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="automation-flow.html" class="nav-link"
+                          >Automation Flow</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="connect-waba.html" class="nav-link"
+                          >Connect WABA</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="templates-creation.html" class="nav-link"
+                          >Templates Creation</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="custom-columns.html" class="nav-link"
+                          >Custom Columns</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="media-library.html" class="nav-link"
+                          >Media Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="agent-management.html" class="nav-link"
+                          >Agent Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="subscription-management.html" class="nav-link"
+                          >Subscription Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="campaigns-creation.html" class="nav-link"
+                          >Campaigns Creation</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="statistics.html" class="nav-link"
+                          >View Statistics</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="order-management.html" class="nav-link"
+                          >Order Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="webhook-integration.html" class="nav-link"
+                          >Webhook Integration</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="contacts.html" class="nav-link"
+                          >Contacts</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="developer-api.html" class="nav-link active"
+                          >Developer API</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="changelog.html">Changelog</a>
+                    </div>
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn sidebar-button">Menu</button>
+              <h4 class="main-title mb-4">
+                <img src="assets/images/favicon.svg" alt="" />Wapi - Core
+                Features
+              </h4>
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">
+                    Essential tools for WhatsApp marketing automation and business growth.
+                  </h3>
+                  <div class="row gy-4">
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img src="assets/images/core-feature/1.svg" alt="" />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">
+                            Admin Dashboard & Analytics
+                          </h3>
+                          <p>Comprehensive overview of business metrics and performance.</p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Revenue Analytics:</b> <br />
+                            Track daily, monthly, and total revenue with visual charts.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>User Statistics:</b> <br />
+                            Monitor total users, active subscriptions, and user growth.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Plan Performance:</b> <br />
+                            View revenue breakdown by subscription plans.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Subscription Management:</b> <br />
+                            Track new, active, and cancelled subscriptions in real-time.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Contact Inquiries:</b> <br />
+                            Manage customer inquiries and support requests.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img src="assets/images/core-feature/2.svg" alt="" />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">User Management System</h3>
+                          <p>
+                            Complete control over customer accounts and subscriptions.
+                          </p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>User Database:</b> <br />
+                            Manage all customer profiles, contact information, and preferences.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Subscription Tracking:</b> <br />
+                            Monitor user subscription status, plans, and billing cycles.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Bulk Operations:</b> <br />
+                            Perform mass actions like status updates or plan changes.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>User Filtering:</b> <br />
+                            Search and filter users by various criteria.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Profile Management:</b> <br />
+                            View and edit user details, plans, and account status.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img src="assets/images/core-feature/4.svg" alt="" />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">Subscription Plan Management</h3>
+                          <p>Create and manage flexible pricing plans for your customers.</p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Plan Creation:</b> <br />
+                            Design custom subscription plans with different features and pricing.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Billing Cycles:</b> <br />
+                            Support monthly, yearly, and custom billing periods.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Feature Limits:</b> <br />
+                            Set usage limits and feature access per plan tier.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Plan Analytics:</b> <br />
+                            Track plan performance and revenue generation.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Bulk Plan Management:</b> <br />
+                            Update multiple plans simultaneously.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img
+                            src="assets/images/advence-feature/4.svg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">
+                            AI Model Integration
+                          </h3>
+                          <p>
+                            Powerful AI capabilities for automated customer interactions.
+                          </p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Multiple AI Providers:</b> <br />
+                            Integrate with OpenAI, Anthropic, Google, and custom AI models.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Model Configuration:</b> <br />
+                            Set up API endpoints, keys, and model parameters.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Default Model Selection:</b> <br />
+                            Choose which AI model to use as the default for chatbots.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Status Management:</b> <br />
+                            Enable/disable AI models based on performance or maintenance.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Performance Monitoring:</b> <br />
+                            Track AI model usage and response quality.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img
+                            src="assets/images/advence-feature/1.svg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">
+                            Template Management System
+                          </h3>
+                          <p>
+                            Create and manage pre-built message templates for consistent branding.
+                          </p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Template Creation:</b> <br />
+                            Design professional message templates with variables and formatting.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Category Organization:</b> <br />
+                            Organize templates by sector (business, education, healthcare, etc.).
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Approval Workflow:</b> <br />
+                            Manage template approval status for quality control.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Multi-language Support:</b> <br />
+                            Create templates in different languages for global reach.
+                          </li>
+
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img src="assets/images/core-feature/6.svg" alt="" />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">Payment Gateway Integration</h3>
+                          <p>
+                            Secure payment processing for subscription management.
+                          </p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Stripe Integration:</b> <br />
+                            Accept credit/debit card payments with Stripe's secure platform.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Razorpay Integration:</b> <br />
+                            Process payments through India's leading payment gateway.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Subscription Billing:</b> <br />
+                            Automated recurring payments and subscription management.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Transaction Tracking:</b> <br />
+                            Monitor all payment transactions and revenue flow.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Refund Management:</b> <br />
+                            Process customer refunds and handle payment disputes.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img src="assets/images/core-feature/3.svg" alt="" />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">Landing Page Builder</h3>
+                          <p>Create professional marketing pages to attract customers.</p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Drag & Drop Editor:</b> <br />
+                            Intuitive interface for building custom landing pages.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Hero Section:</b> <br />
+                            Create compelling headlines and call-to-action sections.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Feature Showcase:</b> <br />
+                            Highlight key platform features and benefits.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Pricing Tables:</b> <br />
+                            Display subscription plans with clear pricing information.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Testimonial Integration:</b> <br />
+                            Showcase customer reviews and success stories.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="core-features">
+                        <div class="features-icon">
+                          <img src="assets/images/core-feature/5.svg" alt="" />
+                        </div>
+                        <div class="features-content">
+                          <h3 class="main-sub-title">Content Management</h3>
+                          <p>Manage FAQs, testimonials, and support content efficiently.</p>
+                        </div>
+                        <ul class="features-hide-content">
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>FAQ Management:</b> <br />
+                            Create and organize frequently asked questions with categories.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Testimonial System:</b> <br />
+                            Collect and display customer testimonials with ratings.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Content Filtering:</b> <br />
+                            Easily search and filter content by status or category.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Bulk Operations:</b> <br />
+                            Perform mass updates, deletions, or status changes.
+                          </li>
+                          <li>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <b>Moderation Tools:</b> <br />
+                            Review and approve user-generated content before publishing.
+                          </li>
+                        </ul>
+                        <button class="btn view-more-btn">
+                          View More
+                          <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="steps-box">
+                  <div class="steps-title">
+                    <div>
+                      <i class="fa fa-rocket" aria-hidden="true"></i>
+                      <h2>What's Next?</h2>
+                    </div>
+                    <p>
+                      Let's get started — grow your business with Wapi WhatsApp Marketing!
+                    </p>
+                  </div>
+                  <div class="row gy-4">
+                    <div class="col-md-4 col-sm-6">
+                      <a href="advanced-features.html" class="steps-content">
+                        <div class="icon">
+                          <img src="assets/images/icon/12.png" alt="" />
+                        </div>
+                        <div class="steps-items">
+                          <h3>Advanced Features</h3>
+                          <p>Additional tools and capabilities</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                      <a href="super-dashboard.html" class="steps-content">
+                        <div class="icon">
+                          <img src="assets/images/icon/14.png" alt="" />
+                        </div>
+                        <div class="steps-items">
+                          <h3>Super Admin</h3>
+                          <p>Team management and control</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                      <a href="super-plans.html" class="steps-content">
+                        <div class="icon">
+                          <img src="assets/images/icon/11.png" alt="" />
+                        </div>
+                        <div class="steps-items">
+                          <h3>Plans Module</h3>
+                          <p>Subscription plan management</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row footer-theme partition-f">
+          <div class="col-12">Copyright 2026 © Wapi template by pixelstrap</div>
+        </div>
+      </div>
+    </footer>
+    <div class="bg-overlay"></div>
+  </body>
+
+  <!-- latest jquery-->
+  <script src="assets/js/jquery-3.5.1.min.js"></script>
+  <!-- Bootstrap js-->
+  <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <!-- popover js-->
+  <!-- code copy box js-->
+  <!-- feather icon js-->
+  <script src="assets/js/icons/feather-icon/feather.min.js"></script>
+  <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+  <script src="assets/js/document/main.js"></script>
+  <script src="assets/js/script.js"></script>
+  <!-- Global Search js-->
+  <script src="assets/js/global-search.js"></script>
+</html>

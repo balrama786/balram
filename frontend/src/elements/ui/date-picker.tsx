@@ -1,0 +1,56 @@
+"use client";
+
+import * as React from "react";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+
+import { cn } from "@/src/lib/utils";
+import { Button } from "@/src/elements/ui/button";
+import { Calendar } from "@/src/elements/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/src/elements/ui/popover";
+
+interface DatePickerProps {
+  date?: Date;
+  onChange?: (date?: Date) => void;
+  placeholder?: string;
+  className?: string;
+  showTime?: boolean;
+}
+
+export function DatePicker({ date, onChange, placeholder = "Pick a date", className, showTime = false }: DatePickerProps) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal h-10 bg-(--input-color) dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color) rounded-lg", !date && "text-muted-foreground", className)}>
+          <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
+          {date ? format(date, showTime ? "PPP HH:mm" : "PPP") : <span>{placeholder}</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0 border-none shadow-2xl rounded-xl z-[1100]" align="start">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={onChange}
+          initialFocus
+        // react-day-picker v9 time pickers or other props can be added here if needed
+        />
+        {showTime && (
+          <div className="p-3 border-t border-slate-100 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) rounded-b-xl flex items-center justify-between gap-2">
+            <input
+              type="time"
+              className="flex-1 h-9 px-3 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--page-body-bg) text-sm focus:outline-none focus:ring-1 focus:ring-primary/20"
+              value={date ? format(date, "HH:mm") : ""}
+              onChange={(e) => {
+                if (!date) return;
+                const [hours, minutes] = e.target.value.split(":");
+                const newDate = new Date(date);
+                newDate.setHours(parseInt(hours), parseInt(minutes));
+                onChange?.(newDate);
+              }}
+            />
+          </div>
+        )}
+      </PopoverContent>
+    </Popover>
+  );
+}

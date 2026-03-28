@@ -1,0 +1,132 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { WABAConnection } from "./whatsapp";
+import { Template, TemplateVariable } from "./components";
+
+export interface WebhookStats {
+  total_triggers: number;
+  successful_sends: number;
+  failed_sends: number;
+  last_triggered_at: string | { $date: string };
+}
+
+export interface WebhookConfig {
+  is_active: boolean;
+  require_auth: boolean;
+  secret_key?: string;
+  verified_numbers_only?: boolean;
+}
+
+export interface Webhook {
+  id?: string;
+  _id?: string | { $oid: string };
+  webhook_name: string;
+  webhook_url?: string;
+  webhook_token?: string;
+  platform?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  template?: any;
+  template_id?: string | { $oid: string };
+  is_template_mapped?: boolean;
+  field_mapping?: {
+    phone_number_field?: string;
+    variables?: Record<string, string>;
+  };
+  is_active: boolean;
+  stats?: WebhookStats;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  first_payload?: any;
+  created_at: string | { $date: string };
+  updated_at?: string | { $date: string };
+  config: WebhookConfig;
+}
+
+export interface WebhookById {
+  webhook: Webhook;
+}
+
+export interface WebhookListResponse {
+  webhooks: Webhook[];
+  total: number;
+}
+
+export interface WebhookResponse {
+  webhook: Webhook;
+  success: boolean;
+  message?: string;
+}
+
+export interface StepHeaderProps {
+  step: number;
+  router: AppRouterInstance;
+  setStep: (step: number) => void;
+}
+
+export interface StepFooterProps {
+  step: number;
+  handleBack: () => void;
+  handleNext: () => void;
+  handleSave: () => Promise<void>;
+  isMapping: boolean;
+  canNext: boolean;
+  canSave: boolean;
+}
+
+export interface TemplateSelectionStepProps {
+  webhookData: WebhookById | undefined;
+  connectionsData: { data: WABAConnection[] } | undefined;
+  selectedWabaId: string;
+  setSelectedWabaId: (id: string) => void;
+  templatesData: { data: Template[] } | undefined;
+  isTemplatesLoading: boolean;
+  selectedTemplateId: string;
+  setSelectedTemplateId: (id: string) => void;
+  setVariableMappings: (mappings: Record<string, string>) => void;
+}
+
+export interface MappingStepProps {
+  payloadFields: string[];
+  phoneNumberField: string;
+  setPhoneNumberField: (field: string) => void;
+  variables: TemplateVariable[] | string[];
+  variableMappings: Record<string, string>;
+  setVariableMappings: (updater: (prev: Record<string, string>) => Record<string, string>) => void;
+  template: Template | undefined;
+  previewVariables: { key: string; example: string }[];
+}
+export interface MapTemplateWizardProps {
+  webhookId: string;
+  initialData: WebhookById;
+  connectionsData: { data: WABAConnection[] } | undefined;
+}
+
+export interface PayloadFieldSelectorProps {
+  fields: string[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  className?: string;
+}
+
+export interface WebhookPayloadModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  webhook?: Webhook;
+}
+
+export interface WebhookModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: Partial<Webhook>) => void;
+  webhook?: Webhook;
+  isLoading?: boolean;
+}
+
+export interface WebhookCardProps {
+  webhook: Webhook;
+  onEdit: (webhook: Webhook) => void;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onViewPayload: (webhook: Webhook) => void;
+  isLoading?: boolean;
+}

@@ -1,0 +1,353 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface ApiEndpoint {
+  title: string;
+  description?: string;
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  path: string;
+  contentType?: string;
+  auth?: string;
+  payload?: any;
+  notes?: string;
+  fields?: { name: string; type: string; required?: boolean; description: string }[];
+  response?: any;
+}
+
+export interface ApiSection {
+  id: string;
+  title: string;
+  description: string;
+  endpoints: ApiEndpoint[];
+}
+
+export const API_DOCS: ApiSection[] = [
+  {
+    id: "conversational",
+    title: "Conversational API",
+    description: "Send interactive messages to your contacts.",
+    endpoints: [
+      {
+        title: "Send Simple Text Message",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          messageType: "text",
+          message: "Hello! How can I help you today?",
+        },
+        response: {
+          success: true,
+          message: "Message sent successfully!",
+          data: {
+            id: "64a1b2c3d4e5f6789abcdef9",
+            wa_message_id: "wamid.XXXXXXXXXXXX",
+          },
+        },
+      },
+      {
+        title: "Send Image (Public URL)",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          messageType: "image",
+          message: "Check this out!",
+          mediaUrl: "https://example.com/image.jpg",
+        },
+        response: {
+          success: true,
+          message: "Message sent successfully!",
+          data: {
+            id: "64a1b2c3d4e5f6789abcdef9",
+            wa_message_id: "wamid.XXXXXXXXXXXX",
+          },
+        },
+      },
+      {
+        title: "Send Document (Public URL)",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          messageType: "document",
+          message: "Please read the attached report",
+          mediaUrl: "https://example.com/report.pdf",
+        },
+        response: {
+          success: true,
+          message: "Message sent successfully!",
+          data: { id: "64a1b2c3d4e5f6789abcdef9" },
+        },
+      },
+      {
+        title: "Send Audio (Public URL)",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          messageType: "audio",
+          mediaUrl: "https://example.com/audio.mp3",
+        },
+        response: {
+          success: true,
+          message: "Message sent successfully!",
+          data: { id: "64a1b2c3d4e5f6789abcdef9" },
+        },
+      },
+      {
+        title: "Send Video (Public URL)",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          messageType: "video",
+          message: "Watch this!",
+          mediaUrl: "https://example.com/video.mp4",
+        },
+        response: {
+          success: true,
+          message: "Message sent successfully!",
+          data: { id: "64a1b2c3d4e5f6789abcdef9" },
+        },
+      },
+      {
+        title: "Send Multiple Media (URLs only)",
+        description: "Sends multiple media files in sequence using public URLs.",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          mediaUrls: ["https://example.com/image1.jpg", "https://example.com/image2.png", "https://example.com/video.mp4"],
+          message: "Here are your files!",
+        },
+        response: {
+          success: true,
+          message: "3 messages sent successfully!",
+          results: [
+            { id: "64a1b2c3d4e5f6789abcd001", success: true },
+            { id: "64a1b2c3d4e5f6789abcd002", success: true },
+            { id: "64a1b2c3d4e5f6789abcd003", success: true },
+          ],
+        },
+      },
+      {
+        title: "Send Location",
+        method: "POST",
+        path: "/api/whatsapp/send",
+        contentType: "application/json",
+        payload: {
+          contact_id: "64a1b2c3d4e5f6789abcdef0",
+          whatsapp_phone_number_id: "64a1b2c3d4e5f6789abcdef1",
+          messageType: "location",
+          location: {
+            latitude: 28.6139,
+            longitude: 77.209,
+            name: "New Delhi",
+            address: "New Delhi, India",
+          },
+        },
+        response: {
+          success: true,
+          message: "Location sent successfully!",
+          data: { id: "64a1b2c3d4e5f6789abcdef9" },
+        },
+      },
+    ],
+  },
+  {
+    id: "template",
+    title: "Template API",
+    description: "Use and manage predefined WhatsApp message templates.",
+    endpoints: [
+      {
+        title: "Create Simple Template",
+        method: "POST",
+        path: "/api/templates/create",
+        contentType: "application/json",
+        payload: {
+          waba_id: "64a1b2c3d4e5f6789abcdef0",
+          template_name: "welcome_offer",
+          category: "MARKETING",
+          language: "en_US",
+          template_type: "standard",
+          header_text: "Hello {{name}}!",
+          message_body: "Hi {{1}}, your order {{2}} has been confirmed. Total: {{3}}.",
+          footer_text: "Reply STOP to unsubscribe",
+          variable_examples: {
+            "1": "John",
+            "2": "ORD-9876",
+            "3": "$49.99",
+          },
+        },
+        response: {
+          success: true,
+          message: "Template submitted successfully!",
+          template: {
+            id: "64a1b2c3d4e5f6789abcdef9",
+            name: "welcome_offer",
+            status: "PENDING",
+          },
+        },
+      },
+      {
+        title: "Authentication / OTP Template",
+        method: "POST",
+        path: "/api/templates/create",
+        contentType: "application/json",
+        payload: {
+          waba_id: "64a1b2c3d4e5f6789abcdef0",
+          template_name: "otp_verification",
+          category: "AUTHENTICATION",
+          language: "en_US",
+          add_security_recommendation: true,
+          code_expiration_minutes: 10,
+          otp_code_length: 6,
+          otp_buttons: [{ otp_type: "COPY_CODE", copy_button_text: "Copy Code" }],
+        },
+        response: {
+          success: true,
+          message: "OTP Template created!",
+          template_id: "64a1b2c3d4e5f6789abcdef9",
+        },
+      },
+    ],
+  },
+  {
+    id: "campaign",
+    title: "Campaign API",
+    description: "Launch and manage large-scale messaging campaigns.",
+    endpoints: [
+      {
+        title: "Create & Send Campaign",
+        method: "POST",
+        path: "/api/campaigns",
+        contentType: "application/json",
+        payload: {
+          name: "March Newsletter",
+          waba_id: "64a1b2c3d4e5f6789abcdef0",
+          template_id: "64a1b2c3d4e5f6789abcdef1",
+          recipient_type: "all_contacts",
+          variables_mapping: { "1": "John", "2": "March 2026" },
+        },
+        response: {
+          success: true,
+          message: "Campaign created and sending started",
+          data: {
+            _id: "64a1b2c3d4e5f6789abcdef9",
+            name: "March Newsletter",
+            status: "sending",
+            total_recipients: 500,
+          },
+        },
+      },
+      {
+        title: "List Campaigns",
+        method: "GET",
+        path: "/api/campaigns",
+        response: {
+          success: true,
+          message: "Campaigns fetched successfully!",
+          campaigns: [
+            { id: "64a1b2c3d4e5f6789abcd001", name: "February Blast", status: "completed" },
+            { id: "64a1b2c3d4e5f6789abcd002", name: "March Promo", status: "scheduled" },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    id: "contacts",
+    title: "Contact Management",
+    description: "Manage your contact database and associations.",
+    endpoints: [
+      {
+        title: "Create Contact",
+        method: "POST",
+        path: "/api/contacts",
+        contentType: "application/json",
+        payload: {
+          phone_number: "+919876543210",
+          name: "John Doe",
+          email: "john@example.com",
+        },
+        response: {
+          success: true,
+          message: "Contact created successfully!",
+          contact: {
+            id: "64a1b2c3d4e5f6789abcdef9",
+            name: "John Doe",
+            phone_number: "+919876543210",
+          },
+        },
+      },
+      {
+        title: "List Contacts",
+        method: "GET",
+        path: "/api/contacts",
+        response: {
+          success: true,
+          message: "Contacts fetched successfully!",
+          contacts: [
+            { id: "1", name: "Alice", phone: "+911111111111" },
+            { id: "2", name: "Bob", phone: "+912222222222" },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    id: "infrastructure",
+    title: "WhatsApp Infrastructure",
+    description: "Manage WABA connections and phone numbers.",
+    endpoints: [
+      {
+        title: "Get WABA Connections",
+        method: "GET",
+        path: "/api/whatsapp/connections",
+        response: {
+          success: true,
+          message: "Connections fetched successfully!",
+          connections: [
+            {
+              id: "64a1b2c3d4e5f6789abcdef0",
+              name: "My Business WABA",
+              whatsapp_business_account_id: "1234567890",
+              is_active: true,
+            },
+          ],
+        },
+      },
+      {
+        title: "Get All Phone Numbers",
+        method: "GET",
+        path: "/api/whatsapp/phone-numbers",
+        response: {
+          success: true,
+          message: "Phone numbers fetched successfully!",
+          phone_numbers: [{ id: "64a1phone01", display_phone_number: "+911234567890", is_primary: true }],
+        },
+      },
+      {
+        title: "Get WABA-Specific Phone Numbers",
+        method: "GET",
+        path: "/api/whatsapp/:wabaId/phone-numbers",
+        response: {
+          success: true,
+          message: "WABA Phone numbers fetched!",
+          data: [{ phone_number_id: "1234567890", display_phone_number: "+911234567890" }],
+        },
+      },
+    ],
+  },
+];

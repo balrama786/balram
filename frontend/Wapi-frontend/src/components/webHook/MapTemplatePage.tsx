@@ -1,0 +1,41 @@
+"use client";
+
+import { useGetWebhookQuery } from "@/src/redux/api/webhookApi";
+import { useGetConnectionsQuery } from "@/src/redux/api/whatsappApi";
+import { Loader2 } from "lucide-react";
+import { useParams } from "next/navigation";
+import MapTemplateWizard from "./map-template/MapTemplateWizard";
+
+const MapTemplatePage = () => {
+  const { id } = useParams();
+  const webhookId = id as string;
+
+  const { data: webhookData, isLoading: isWebhookLoading } = useGetWebhookQuery(webhookId);
+  const { data: connectionsData, isLoading: isConnectionsLoading } = useGetConnectionsQuery();
+
+  if (isWebhookLoading || isConnectionsLoading) {
+    return (
+      <div className="flex h-[80vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+          <p className="text-sm font-bold text-slate-500 animate-pulse capitalize!  tracking-widest">Initialising Configuration...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!webhookData) {
+    return (
+      <div className="flex h-[80vh] items-center justify-center">
+        <div className="text-center space-y-2">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">Webhook Not Found</h2>
+          <p className="text-slate-500">The requested webhook could not be loaded.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return <MapTemplateWizard key={webhookId} webhookId={webhookId} initialData={webhookData} connectionsData={connectionsData} />;
+};
+
+export default MapTemplatePage;

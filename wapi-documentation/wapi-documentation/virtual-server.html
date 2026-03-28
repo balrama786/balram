@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wapi - NextJs Document" />
+    <meta name="keywords" content="Wapi - NextJs Document" />
+    <meta name="author" content="pixelstrap" />
+    <link rel="icon" href="assets/images/favicon.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.svg"
+      type="image/x-icon"
+    />
+    <title>Introduction - Wapi documentation</title>
+    <!-- Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
+    <!-- Feather icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/feather-icon.css"
+    />
+    <!-- Remix icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/remixicon.css"
+    />
+    <!-- Remix icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/remixicon.css"
+    />
+    <!-- animate-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/animate.css"
+    />
+    <!-- Bootstrap css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/bootstrap.css"
+    />
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- Global Search css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/global-search.css"
+    />
+  </head>
+
+  <body>
+    <!-- tap on top starts-->
+    <a href="javascript:void(0)" class="sidebar-overlay"></a>
+    <div class="tap-top">
+      <i data-feather="chevrons-up"></i>
+      <p>Top</p>
+    </div>
+    <!-- tap on tap ends-->
+    <div>
+      <div class="home-section">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container custom-container">
+            <div class="main-menu">
+              <button
+                class="navbar-toggler collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fa fa-bars"> </i>
+              </button>
+              <a class="navbar-brand" href="index.html">
+                <img src="assets/images/logo/logo.svg" alt=""
+              /></a>
+              <div>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav menu">
+                    <li class="nav-item active">
+                      <a
+                        class="nav-link"
+                        href="#"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Purchase</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://support.pixelstrap.com/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Support</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-frontend-live.vercel.app/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Frontend</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-admin-live.vercel.app"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Admin
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ul class="nav-right">
+                <li>
+                  <div class="btn-group">
+                    <a
+                      class="decrease btn btn-doc"
+                      href="#"
+                      title="Decrease font size"
+                      >A-</a
+                    ><a
+                      class="reset btn btn-doc"
+                      href="#"
+                      title="Default font size"
+                      >A</a
+                    ><a
+                      class="increase btn btn-doc"
+                      href="#"
+                      title="Increase font size"
+                      >A+</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a class="btn btn-light mode" href="#" title="Dark"
+                    ><i class="fa fa-moon-o"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container custom-container">
+          <div class="document">Wapi documentation</div>
+          <div class="top-heading">
+            <h2>Chat, collaborate, and create teams effortlessly with Wapi</h2>
+            <div class="home-search">
+              <input type="search" name="text" placeholder="Search..." />
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container custom-container" id="mainRightNavbar">
+      <div class="document-main">
+        <div class="left-sidebar">
+          <div class="card">
+            <div class="card-body">
+              <aside>
+                <button class="btn button-close">
+                  <span>Close</span>
+                  <i data-feather="x"></i>
+                </button>
+                <ul class="list-unstyled nav-sidebar doc-nav">
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="index.html">Introduction</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="prerequisite.html"
+                        >Prerequisite</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Wapi Installation
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Overview</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="frontend-installation.html" class="nav-link"
+                          >Frontend Installation</a
+                        >
+                      </li>
+                      <li class="nav-item menu">
+                        <div class="title">
+                          <a class="nav-link" href="#!"
+                            >Backend Installation
+                            <i class="fa fa-angle-down" aria-hidden="true"></i
+                          ></a>
+                        </div>
+                        <ul class="sub-menu nested-sub-menu">
+                          <li class="nav-item">
+                            <a href="local-server.html" class="nav-link"
+                              >Local Server</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a href="live-server.html" class="nav-link"
+                              >Live Server</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Deployment
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="cpanel.html" class="nav-link">C-panel</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="virtual-server.html" class="nav-link"
+                          >Virtual Private Server</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="vercel.html" class="nav-link">Vercel</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="core-features.html"
+                        >Core Features</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="advanced-features.html"
+                        >Advanced Features</a
+                      >
+                    </div>
+                  </li>
+
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Admin Guide
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link"
+                          >Admin Dashboard</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-plan-management.html" class="nav-link"
+                          >Plan Creation & Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-user-subscriptions.html" class="nav-link"
+                          >User Subscriptions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-payment-transactions.html"
+                          class="nav-link"
+                          >Payment Transactions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-manage-users.html" class="nav-link"
+                          >Manage Users</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-manage-faqs.html" class="nav-link"
+                          >Manage FAQs</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-manage-testimonials.html"
+                          class="nav-link"
+                          >Manage Testimonials</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-landing-page.html" class="nav-link"
+                          >Manage Landing Page</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-template-library.html" class="nav-link"
+                          >Template Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-payment-gateways.html" class="nav-link"
+                          >Payment Gateways (Stripe & Razorpay)</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-settings.html" class="nav-link"
+                          >Platform Settings & Keys</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-ai-models.html" class="nav-link"
+                          >AI Models</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-contact-inquiries.html"
+                          class="nav-link"
+                          >Contact Inquiries</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                                    <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Frontend
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="frontend-dashboard.html" class="nav-link"
+                          >Dashboard</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="chat-inbox.html" class="nav-link"
+                          >Chat Inbox</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="automation-flow.html" class="nav-link"
+                          >Automation Flow</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="connect-waba.html" class="nav-link"
+                          >Connect WABA</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="templates-creation.html" class="nav-link"
+                          >Templates Creation</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="custom-columns.html" class="nav-link"
+                          >Custom Columns</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="media-library.html" class="nav-link"
+                          >Media Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="agent-management.html" class="nav-link"
+                          >Agent Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="subscription-management.html" class="nav-link"
+                          >Subscription Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="campaigns-creation.html" class="nav-link"
+                          >Campaigns Creation</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="statistics.html" class="nav-link"
+                          >View Statistics</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="order-management.html" class="nav-link"
+                          >Order Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="webhook-integration.html" class="nav-link"
+                          >Webhook Integration</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="contacts.html" class="nav-link"
+                          >Contacts</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="developer-api.html" class="nav-link active"
+                          >Developer API</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="changelog.html">Changelog</a>
+                    </div>
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <div class="content card-hover-effect">
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn sidebar-button">Menu</button>
+              <h4 class="main-title mb-4">
+                <img src="assets/images/favicon.svg" alt="" /> Welcome to Wapi !
+              </h4>
+            </div>
+
+            <!-- INTRODUCTION -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">Introduction</h3>
+                  <p>
+                    This guide explains how to deploy the Wapi backend on a VPS
+                    (Virtual Private Server). You'll set up the server, install
+                    all required tools, configure the database, and run Wapi
+                    securely in production. VPS deployment is the recommended
+                    method because it gives full control over performance,
+                    scaling, security, and custom configurations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1. SYSTEM SETUP -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">1. System Setup</h3>
+                  <p>
+                    After connecting to your VPS via SSH, start by updating your
+                    server and installing required packages.
+                  </p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo apt update && sudo apt upgrade -y</li>
+                      <li>sudo apt install curl wget git unzip -y</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    This installs essential utilities needed later to fetch and
+                    manage Wapi backend files and dependencies.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. INSTALL NODEJS -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">
+                    2. Install Node.js Runtime
+                  </h3>
+                  <p>
+                    The Wapi backend is built on Node.js. Install the latest LTS
+                    version:
+                  </p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>
+                        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo
+                        -E bash -
+                      </li>
+                      <li>sudo apt-get install -y nodejs</li>
+                      <li>node --version</li>
+                      <li>npm --version</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    Confirming the version ensures Node.js and npm installed
+                    successfully.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. INSTALL DATABASE -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">
+                    3. Install and Configure Database
+                  </h3>
+                  <p>
+                    Wapi now uses MongoDB for storing user data, messages,
+                    calls, posts, media metadata, and other application data.
+                  </p>
+                  <p>
+                    Install MongoDB Community Edition (recommended version: 8.0
+                    or latest stable)
+                  </p>
+                  <p>1. Import the MongoDB public GPG Key (for version 8.0):</p>
+                  <p>
+                    curl -fsSL
+                    <a href="https://www.mongodb.org/static/pgp/server-8.0.asc"
+                      >https://www.mongodb.org/static/pgp/server-8.0.asc</a
+                    >
+                  </p>
+                  <div class="code-block">
+                    <ul>
+                      <li>
+                        sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg
+                        --dearmor
+                      </li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    2. Create the list file (for Ubuntu 22.04 = jammy | 24.04 =
+                    noble):
+                  </p>
+                  <p>Use 'jammy' for Ubuntu 22.04, 'noble' for Ubuntu 24.04</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>
+                        echo "deb [ arch=amd64,arm64
+                        signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ]
+                        https://repo.mongodb.org/apt/ubuntu
+                        noble/mongodb-org/8.0 multiverse" |
+                      </li>
+                      <li>
+                        sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+                      </li>
+                    </ul>
+                  </div>
+
+                  <p>3. Update and install MongoDB</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo apt update</li>
+                      <li>sudo apt install -y mongodb-org</li>
+                    </ul>
+                  </div>
+                  <p>4. Start and enable MongoDB service</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo systemctl start mongod</li>
+                      <li>sudo systemctl enable mongod</li>
+                    </ul>
+                  </div>
+                  <p>5. Verify installation</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo systemctl status mongod</li>
+                      <li>mongod --version</li>
+                      <li>mongosh --version</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. DEPLOY CODE -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">
+                    4. Deploy the Application Code
+                  </h3>
+                  <p>
+                    Upload the Wapi backend folder or clone it directly from
+                    your repository:
+                  </p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>git clone &lt;your-repo-url&gt;</li>
+                      <li>cd wapi-backend</li>
+                      <li>npm install --production</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    After installation, create a <b>.env</b> file and add all
+                    required backend configuration values.
+                  </p>
+
+                  <p><b>Example</b></p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>PORT=3000</li>
+                      <li style="margin-top: 10px">DEMO=true</li>
+                      <li style="margin-top: 10px">
+                        MONGODB_URI=YOUR_MONGODB_CONNECTION_STRING
+                      </li>
+                      <li style="margin-top: 10px">ADMIN_NAME=Admin</li>
+                      <li>ADMIN_EMAIL=YOUR_ADMIN_EMAIL</li>
+                      <li>ADMIN_PASSWORD=ADMIN_PASSWORD</li>
+                      <li style="margin-top: 10px">SMTP_HOST=</li>
+                      <li>SMTP_PORT=</li>
+                      <li>SMTP_USER=</li>
+                      <li>SMTP_PASS=</li>
+                      <li style="margin-top: 10px">
+                        JWT_SECRET=YOUR_SECRET_KEY
+                      </li>
+                      <li>GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID</li>
+                      <li>GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET</li>
+                      <li>GOOGLE_REDIRECT_URI=YOUR_GOOGLE_REDIRECT_URI</li>
+                      <li style="margin-top: 10px">FRONT_REDIRECT_URL=</li>
+                      <li style="margin-top: 10px">TWILIO_ACCOUNT_SID=</li>
+                      <li>TWILIO_AUTH_TOKEN=</li>
+                      <li>TWILIO_PHONE=</li>
+                      <li style="margin-top: 10px">STRIPE_SECRET_KEY=</li>
+                      <li>STRIPE_PUBLISHABLE_KEY=</li>
+                      <li style="margin-top: 10px">RAZORPAY_KEY_ID=</li>
+                      <li>RAZORPAY_KEY_SECRET=</li>
+                      <li style="margin-top: 10px">PAYPAL_MODE=</li>
+                      <li>PAYPAL_CLIENT_ID=</li>
+                      <li>PAYPAL_CLIENT_SECRET=</li>
+                      <li>PAYPAL_WEBHOOK_ID=</li>
+                      <li>FRONTEND_URL=</li>
+                      <li style="margin-top: 10px">ALLOWED_ORIGINS=</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    The .env file ensures the backend loads settings securely
+                    and consistently across environments.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. PM2 PROCESS MANAGER -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">5. Process Management</h3>
+                  <p>
+                    To keep Wapi running continuously and auto-restart on
+                    errors, use PM2:
+                  </p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo npm install -g pm2</li>
+                      <li>pm2 start server.js --name wapi-backend</li>
+                      <li>pm2 save</li>
+                      <li>pm2 startup</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    PM2 ensures uptime, handles crashes, and provides clean
+                    logging tools.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. NGINX REVERSE PROXY -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">
+                    6. Reverse Proxy Setup (Nginx)
+                  </h3>
+                  <p>
+                    Wapi runs on an internal port (e.g., 4000), so you need
+                    Nginx to route traffic from your domain.
+                  </p>
+
+                  <h4>Create an Nginx config file:</h4>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo nano /etc/nginx/sites-available/wapi</li>
+                    </ul>
+                  </div>
+
+                  <h4>Add the following configuration:</h4>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>server {</li>
+                      <li>&nbsp;&nbsp;listen 80;</li>
+                      <li>&nbsp;&nbsp;server_name your-domain.com;</li>
+                      <li>&nbsp;&nbsp;location / {</li>
+                      <li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;proxy_pass
+                        http://localhost:4000;
+                      </li>
+                      <li>&nbsp;&nbsp;&nbsp;&nbsp;proxy_http_version 1.1;</li>
+                      <li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header Upgrade
+                        $http_upgrade;
+                      </li>
+                      <li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header Connection
+                        'upgrade';
+                      </li>
+                      <li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;proxy_set_header Host $host;
+                      </li>
+                      <li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;proxy_cache_bypass
+                        $http_upgrade;
+                      </li>
+                      <li>&nbsp;&nbsp;}</li>
+                      <li>}</li>
+                    </ul>
+                  </div>
+
+                  <p>Enable and restart Nginx:</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>
+                        sudo ln -s /etc/nginx/sites-available/wapi
+                        /etc/nginx/sites-enabled/
+                      </li>
+                      <li>sudo nginx -t</li>
+                      <li>sudo systemctl restart nginx</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    Your Wapi backend will now be available through your domain.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. SSL -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">7. Enable SSL (HTTPS)</h3>
+                  <p>
+                    Secure your API with a free Let’s Encrypt SSL certificate:
+                  </p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>sudo apt install certbot python3-certbot-nginx -y</li>
+                      <li>sudo certbot --nginx -d your-domain.com</li>
+                    </ul>
+                  </div>
+
+                  <p>Set up auto-renewal:</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>0 12 * * * /usr/bin/certbot renew --quiet</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. TESTING -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">
+                    8. Testing and Verification
+                  </h3>
+                  <p>
+                    Visit your domain (e.g., <b>https://your-domain.com/api</b>)
+                    to confirm Wapi is running correctly.
+                  </p>
+
+                  <p>Check logs with:</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>pm2 logs wapi-backend</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    Verify API responses, media upload paths, authentication,
+                    and real-time events.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 9. MAINTENANCE -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">9. Maintenance & Updates</h3>
+                  <p>To update your Wapi backend in the future:</p>
+
+                  <div class="code-block">
+                    <ul>
+                      <li>git pull origin main</li>
+                      <li>npm install</li>
+                      <li>pm2 restart wapi-backend</li>
+                    </ul>
+                  </div>
+
+                  <p>
+                    It is recommended to monitor CPU, RAM, disk usage, database
+                    health, and system logs regularly.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SUMMARY -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">Summary</h3>
+                  <p>
+                    By following this guide, your Wapi backend will be fully
+                    deployed on a VPS with a secure, scalable, and
+                    production-ready environment. This deployment method ensures
+                    reliable performance, smooth real-time messaging with
+                    Socket.io.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- WHAT'S NEXT -->
+            <div class="col-12">
+              <div class="card bottom-card">
+                <div class="card-body">
+                  <div class="steps-box">
+                    <div class="steps-title">
+                      <div>
+                        <i class="fa fa-rocket" aria-hidden="true"></i>
+                        <h2>What's Next?</h2>
+                      </div>
+                      <p>Let’s continue — your social world lives on Wapi!</p>
+                    </div>
+
+                    <div class="row gy-4">
+                      <div class="col-md-4 col-sm-6">
+                        <a href="cpanel.html" class="steps-content">
+                          <div class="icon">
+                            <img src="assets/images/icon/8.png" alt="" />
+                          </div>
+                          <div class="steps-items">
+                            <h3>Deploy on CPanel</h3>
+                            <p>Host Wapi using shared hosting</p>
+                          </div>
+                        </a>
+                      </div>
+
+                      <div class="col-md-4 col-sm-6">
+                        <a href="vercel.html" class="steps-content">
+                          <div class="icon">
+                            <img src="assets/images/icon/10.png" alt="" />
+                          </div>
+                          <div class="steps-items">
+                            <h3>Deploy on Vercel</h3>
+                            <p>Frontend deployment instructions</p>
+                          </div>
+                        </a>
+                      </div>
+
+                      <div class="col-md-4 col-sm-6">
+                        <a
+                          href="frontend-installation.html"
+                          class="steps-content"
+                        >
+                          <div class="icon">
+                            <img src="assets/images/icon/3.png" alt="" />
+                          </div>
+                          <div class="steps-items">
+                            <h3>Wapi Installation</h3>
+                            <p>Frontend setup and configuration</p>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row footer-theme partition-f">
+          <div class="col-12">Copyright 2026 © Wapi template by pixelstrap</div>
+        </div>
+      </div>
+    </footer>
+    <div class="bg-overlay"></div>
+  </body>
+
+  <!-- latest jquery-->
+  <script src="assets/js/jquery-3.5.1.min.js"></script>
+  <!-- Bootstrap js-->
+  <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <!-- popover js-->
+  <!-- code copy box js-->
+  <!-- feather icon js-->
+  <script src="assets/js/icons/feather-icon/feather.min.js"></script>
+  <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+  <script src="assets/js/document/main.js"></script>
+  <script src="assets/js/script.js"></script>
+  <!-- Global Search js-->
+  <script src="assets/js/global-search.js"></script>
+</html>

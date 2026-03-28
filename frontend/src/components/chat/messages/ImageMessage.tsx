@@ -1,0 +1,30 @@
+import React from "react";
+import BaseMessage from "./BaseMessage";
+import { ChatMessage } from "@/src/types/components/chat";
+import Image from "next/image";
+import { Maximize2 } from "lucide-react";
+
+interface ImageMessageProps {
+  message: ChatMessage;
+  onImageClick?: (url: string) => void;
+}
+
+const ImageMessage: React.FC<ImageMessageProps> = ({ message, onImageClick }) => {
+  return (
+    <BaseMessage message={message}>
+      <div className="flex flex-col gap-2">
+        {message.fileUrl && (
+          <div className="relative rounded-lg overflow-hidden max-h-62.5 max-w-62.5 border border-black/5 dark:border-white/5 cursor-pointer group" onClick={() => onImageClick?.(message.fileUrl!)}>
+            <Image src={message.fileUrl} alt="Media" width={300} height={300} className="w-full transition-transform duration-500 group-hover:scale-110" unoptimized />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <Maximize2 size={24} className="text-white scale-75 group-hover:scale-100 transition-transform duration-300" />
+            </div>
+          </div>
+        )}
+        {message.content && <p className="whitespace-pre-wrap wrap-break-word leading-relaxed text-[13.5px]">{message.content}</p>}
+      </div>
+    </BaseMessage>
+  );
+};
+
+export default ImageMessage;

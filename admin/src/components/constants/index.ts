@@ -1,0 +1,1 @@
+export const ImagePath: string = "/assets/images";

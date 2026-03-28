@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wapi - Contacts Documentation" />
+    <meta name="keywords" content="Wapi, Frontend, Contacts, CRM, Customers" />
+    <meta name="author" content="pixelstrap" />
+    <link rel="icon" href="assets/images/favicon.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.svg"
+      type="image/x-icon"
+    />
+    <title>Contacts - Wapi documentation</title>
+    <!-- Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
+    <!-- Feather icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/feather-icon.css"
+    />
+    <!-- Remix icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/remixicon.css"
+    />
+    <!-- animate-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/animate.css"
+    />
+    <!-- Bootstrap css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/bootstrap.css"
+    />
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- Global Search css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/global-search.css"
+    />
+  </head>
+
+  <body>
+    <!-- tap on top starts-->
+    <a href="javascript:void(0)" class="sidebar-overlay"></a>
+    <div class="tap-top">
+      <i data-feather="chevrons-up"></i>
+      <p>Top</p>
+    </div>
+    <!-- tap on tap ends-->
+    <div>
+      <div class="home-section">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container custom-container">
+            <div class="main-menu">
+              <button
+                class="navbar-toggler collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fa fa-bars"> </i>
+              </button>
+              <a class="navbar-brand" href="index.html">
+                <img src="assets/images/logo/logo.svg" alt=""
+              /></a>
+              <div>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav menu">
+                    <li class="nav-item active">
+                      <a
+                        class="nav-link"
+                        href="#"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Purchase</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://support.pixelstrap.com/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Support</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-frontend-live.vercel.app/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Frontend</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-admin-live.vercel.app"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Admin
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ul class="nav-right">
+                <li>
+                  <div class="btn-group">
+                    <a
+                      class="decrease btn btn-doc"
+                      href="#"
+                      title="Decrease font size"
+                      >A-</a
+                    ><a
+                      class="reset btn btn-doc"
+                      href="#"
+                      title="Default font size"
+                      >A</a
+                    ><a
+                      class="increase btn btn-doc"
+                      href="#"
+                      title="Increase font size"
+                      >A+</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a class="btn btn-light mode" href="#" title="Dark"
+                    ><i class="fa fa-moon-o"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container custom-container">
+          <div class="document">Wapi documentation</div>
+          <div class="top-heading">
+            <h2>Contacts Overview</h2>
+            <div class="home-search">
+              <input type="search" name="text" placeholder="Search..." />
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container custom-container" id="mainRightNavbar">
+      <div class="document-main">
+        <div class="left-sidebar">
+          <div class="card">
+            <div class="card-body">
+              <aside>
+                <button class="btn button-close">
+                  <span>Close</span>
+                  <i data-feather="x"></i>
+                </button>
+                <ul class="list-unstyled nav-sidebar doc-nav">
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="index.html">Introduction</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="prerequisite.html"
+                        >Prerequisite</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Wapi Installation
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Overview</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="frontend-installation.html" class="nav-link"
+                          >Frontend Installation</a
+                        >
+                      </li>
+                      <li class="nav-item menu">
+                        <div class="title">
+                          <a class="nav-link" href="#!"
+                            >Backend Installation
+                            <i class="fa fa-angle-down" aria-hidden="true"></i
+                          ></a>
+                        </div>
+                        <ul class="sub-menu nested-sub-menu">
+                          <li class="nav-item">
+                            <a href="local-server.html" class="nav-link"
+                              >Local Server</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a href="live-server.html" class="nav-link"
+                              >Live Server</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Deployment
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="cpanel.html" class="nav-link">C-panel</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="virtual-server.html" class="nav-link"
+                          >Virtual Private Server</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="vercel.html" class="nav-link">Vercel</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="core-features.html"
+                        >Core Features</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="advanced-features.html"
+                        >Advanced Features</a
+                      >
+                    </div>
+                  </li>
+
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Admin Guide
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link"
+                          >Dashboard Module</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="manage-plans.html" class="nav-link"
+                          >Manage Plans</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="user-subscriptions.html" class="nav-link"
+                          >User Subscriptions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="payment-transactions.html" class="nav-link"
+                          >Payment Transactions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="manage-users.html" class="nav-link"
+                          >Manage Users</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="manage-faqs.html" class="nav-link"
+                          >Manage FAQs</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="manage-testimonials.html" class="nav-link"
+                          >Manage Testimonials</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="manage-landing-page.html" class="nav-link"
+                          >Manage Landing Page</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="template-library.html" class="nav-link"
+                          >Template Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="payment-gateway.html" class="nav-link"
+                          >Payment Gateway</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="settings.html" class="nav-link"
+                          >Settings</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="ai-models.html" class="nav-link"
+                          >AI Models</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="contact-inquiries.html" class="nav-link"
+                          >Contact Inquiries</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Frontend
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="frontend-dashboard.html" class="nav-link"
+                          >Dashboard</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="chat-inbox.html" class="nav-link"
+                          >Chat Inbox</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="automation-flow.html" class="nav-link"
+                          >Automation Flow</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="connect-waba.html" class="nav-link"
+                          >Connect WABA</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="templates-creation.html" class="nav-link"
+                          >Templates Creation</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="custom-columns.html" class="nav-link"
+                          >Custom Columns</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="media-library.html" class="nav-link"
+                          >Media Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="agent-management.html" class="nav-link"
+                          >Agent Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="subscription-management.html" class="nav-link"
+                          >Subscription Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="campaigns-creation.html" class="nav-link"
+                          >Campaigns Creation</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="statistics.html" class="nav-link"
+                          >View Statistics</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="order-management.html" class="nav-link"
+                          >Order Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="webhook-integration.html" class="nav-link"
+                          >Webhook Integration</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="contacts.html" class="nav-link active"
+                          >Contacts</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="developer-api.html" class="nav-link"
+                          >Developer API</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="update.html"
+                        ></a
+                      >
+                    </div>
+                  </li>
+
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="changelog.html">Changelog</a>
+                    </div>
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <div class="content card-hover-effect">
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn sidebar-button">Menu</button>
+              <h4 class="main-title mb-4">
+                <img src="assets/images/favicon.svg" alt="" /> Contacts
+              </h4>
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h4 class="main-sub-title" style="font-weight: 600">
+                    Overview
+                  </h4>
+                  <p>
+                    The Contacts module provides a comprehensive customer relationship management system within WAPI. It allows you to store, organize, and manage all your customer information in one centralized location for efficient communication and engagement.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h4 class="main-sub-title" style="font-weight: 600">
+                    Contact Management
+                  </h4>
+                  <ul class="square">
+                    <li>
+                      <strong>Contact Database:</strong> Store customer information including names, phone numbers, and other details
+                    </li>
+                    <li>
+                      <strong>Segmentation:</strong> Group contacts based on various criteria for targeted communication
+                    </li>
+                    <li>
+                      <strong>Interaction History:</strong> Track all interactions with each contact
+                    </li>
+                    <li>
+                      <strong>Custom Fields:</strong> Add custom information fields specific to your business needs
+                    </li>
+                    <li>
+                      <strong>Import/Export:</strong> Bulk import contacts or export contact data as needed
+                    </li>
+                  </ul>
+                  <div class="row">
+                    <div class="col-xl-10">
+                      <div class="images-box">
+                        <img src="assets/images/user/webhook.png" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h4 class="main-sub-title" style="font-weight: 600">
+                    CRM Features
+                  </h4>
+                  <ul class="square">
+                    <li>
+                      <strong>Customer Profiles:</strong> Comprehensive profiles with purchase history and preferences
+                    </li>
+                    <li>
+                      <strong>Tagging System:</strong> Organize contacts with custom tags for easy identification
+                    </li>
+                    <li>
+                      <strong>Communication Tracking:</strong> Monitor all communication touchpoints with customers
+                    </li>
+                    <li>
+                      <strong>Activity Timeline:</strong> View chronological history of customer interactions
+                    </li>
+                    <li>
+                      <strong>Relationship Mapping:</strong> Understand customer relationships and buying patterns
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row footer-theme partition-f">
+          <div class="col-12">Copyright 2026 © Wapi template by pixelstrap</div>
+        </div>
+      </div>
+    </footer>
+    <div class="bg-overlay"></div>
+  </body>
+  <!-- latest jquery-->
+  <script src="assets/js/jquery-3.5.1.min.js"></script>
+  <!-- Bootstrap js-->
+  <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <!-- popover js-->
+  <!-- code copy box js-->
+  <!-- feather icon js-->
+  <script src="assets/js/icons/feather-icon/feather.min.js"></script>
+  <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+  <script src="assets/js/document/main.js"></script>
+  <script src="assets/js/script.js"></script>
+  <!-- Global Search js-->
+  <script src="assets/js/global-search.js"></script>
+</html>

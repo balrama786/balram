@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Configure and manage WAPI subscription plans including pricing, limits and feature access."
+    />
+    <meta name="keywords" content="WAPI, Plans, Subscriptions, SaaS Pricing" />
+    <meta name="author" content="pixelstrap" />
+    <link rel="icon" href="assets/images/favicon.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.svg"
+      type="image/x-icon"
+    />
+    <title>Plan Creation & Management - WAPI Documentation</title>
+    <!-- Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
+    <!-- Feather icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/feather-icon.css"
+    />
+    <!-- Remix icon-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/remixicon.css"
+    />
+    <!-- animate-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/animate.css"
+    />
+    <!-- Bootstrap css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vendors/bootstrap.css"
+    />
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- Global Search css-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/global-search.css"
+    />
+  </head>
+
+  <body>
+    <a href="javascript:void(0)" class="sidebar-overlay"></a>
+    <div class="tap-top">
+      <i data-feather="chevrons-up"></i>
+      <p>Top</p>
+    </div>
+    <div>
+      <div class="home-section">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container custom-container">
+            <div class="main-menu">
+              <button
+                class="navbar-toggler collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fa fa-bars"> </i>
+              </button>
+              <a class="navbar-brand" href="index.html">
+                <img src="assets/images/logo/logo.svg" alt="WAPI - WhatsApp Marketing Platform"
+              /></a>
+              <div>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav menu">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://codecanyon.net/item/wapi-whatsapp-marketing-automation-platform-saas-solution/60857765"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Purchase</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://support.pixelstrap.com/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Support</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-frontend.vercel.app/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Frontend</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        href="https://wapi-admin.vercel.app/"
+                        role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        target="_blank"
+                        >Admin
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ul class="nav-right">
+                <li>
+                  <div class="btn-group">
+                    <a
+                      class="decrease btn btn-doc"
+                      href="#"
+                      title="Decrease font size"
+                      >A-</a
+                    ><a
+                      class="reset btn btn-doc"
+                      href="#"
+                      title="Default font size"
+                      >A</a
+                    ><a
+                      class="increase btn btn-doc"
+                      href="#"
+                      title="Increase font size"
+                      >A+</a
+                    >
+                  </div>
+                </li>
+                <li>
+                  <a class="btn btn-light mode" href="#" title="Dark"
+                    ><i class="fa fa-moon-o"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container custom-container">
+          <div class="document">WAPI Admin Documentation</div>
+          <div class="top-heading">
+            <h2>Plan Creation & Management – Design your SaaS pricing</h2>
+            <div class="home-search">
+              <input type="search" name="text" placeholder="Search..." />
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container custom-container" id="mainRightNavbar">
+      <div class="document-main">
+        <div class="left-sidebar">
+          <div class="card">
+            <div class="card-body">
+              <aside>
+                <button class="btn button-close">
+                  <span>Close</span>
+                  <i data-feather="x"></i>
+                </button>
+                <ul class="list-unstyled nav-sidebar doc-nav">
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="index.html">Introduction</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="prerequisite.html"
+                        >Prerequisite</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Wapi Installation
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="overview.html" class="nav-link">Overview</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="frontend-installation.html" class="nav-link"
+                          >Frontend Installation</a
+                        >
+                      </li>
+                      <li class="nav-item menu">
+                        <div class="title">
+                          <a class="nav-link" href="#!"
+                            >Backend Installation
+                            <i class="fa fa-angle-down" aria-hidden="true"></i
+                          ></a>
+                        </div>
+                        <ul class="sub-menu nested-sub-menu">
+                          <li class="nav-item">
+                            <a href="local-server.html" class="nav-link"
+                              >Local Server</a
+                            >
+                          </li>
+                          <li class="nav-item">
+                            <a href="live-server.html" class="nav-link"
+                              >Live Server</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Deployment
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="cpanel.html" class="nav-link">C-panel</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="virtual-server.html" class="nav-link"
+                          >Virtual Private Server</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="vercel.html" class="nav-link">Vercel</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="core-features.html"
+                        >Core Features</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="advanced-features.html"
+                        >Advanced Features</a
+                      >
+                    </div>
+                  </li>
+                  <li class="nav-item menu">
+                    <div class="title">
+                      <a class="nav-link" href="#!"
+                        >Admin Guide
+                        <i class="fa fa-angle-down" aria-hidden="true"></i
+                      ></a>
+                    </div>
+                    <ul class="sub-menu">
+                      <li class="nav-item">
+                        <a href="admin-dashboard.html" class="nav-link"
+                          >Admin Dashboard</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-plan-management.html" class="nav-link"
+                          >Plan Creation & Management</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-user-subscriptions.html" class="nav-link"
+                          >User Subscriptions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-payment-transactions.html"
+                          class="nav-link"
+                          >Payment Transactions</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-manage-users.html" class="nav-link"
+                          >Manage Users</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-manage-faqs.html" class="nav-link"
+                          >Manage FAQs</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-manage-testimonials.html"
+                          class="nav-link"
+                          >Manage Testimonials</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-landing-page.html" class="nav-link"
+                          >Manage Landing Page</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-template-library.html" class="nav-link"
+                          >Template Library</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-payment-gateways.html" class="nav-link"
+                          >Payment Gateways (Stripe & Razorpay)</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-settings.html" class="nav-link"
+                          >Platform Settings & Keys</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a href="admin-ai-models.html" class="nav-link"
+                          >AI Models</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="admin-contact-inquiries.html"
+                          class="nav-link"
+                          >Contact Inquiries</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+
+                  <li class="nav-item">
+                    <div class="title">
+                      <a class="nav-link" href="changelog.html">Changelog</a>
+                    </div>
+                  </li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn sidebar-button">Menu</button>
+              <h4 class="main-title mb-4">
+                <img src="assets/images/favicon.svg" alt="" /> Plan Creation & Management
+              </h4>
+            </div>
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body ul-body">
+                  <h3 class="main-sub-title mt-0">Overview</h3>
+                  <p>
+                    The <b>Plan Management</b> area controls how you package and sell WAPI as a SaaS.
+                    Here you define pricing, billing cycles, feature access and usage limits for each
+                    subscription plan that your customers can purchase.
+                  </p>
+                  <h4>All Plans List</h4>
+                  <p>
+                    The plans table shows every plan configured in the admin:
+                  </p>
+                  <ul>
+                    <li>Plan name and internal slug.</li>
+                    <li>Monthly / yearly pricing and billing cycle.</li>
+                    <li>Status (active / inactive) and default plan badge.</li>
+                    <li>Key limits such as message quota, instances, users, or team seats.</li>
+                  </ul>
+                  <h4>Creating a New Plan</h4>
+                  <ol>
+                    <li>Click <b>Add Plan</b> in the admin sidebar (`/manage_plan`).</li>
+                    <li>Fill in basic info – name, description, display order and visibility.</li>
+                    <li>Configure pricing – monthly, yearly and trial options if applicable.</li>
+                    <li>
+                      Set <b>usage limits</b> – number of WhatsApp instances, contacts, broadcasts,
+                      API calls, and other resource caps according to your business model.
+                    </li>
+                    <li>
+                      Enable or disable <b>feature flags</b> – chatbots, templates, broadcasts,
+                      integrations, analytics, etc.
+                    </li>
+                    <li>Decide if the plan should be the default for new sign‑ups.</li>
+                    <li>Save and review it in the plans list.</li>
+                  </ol>
+                  <h4>Managing Existing Plans</h4>
+                  <ul>
+                    <li><b>Edit</b> – Update pricing, limits or enabled features at any time.</li>
+                    <li><b>Activate / Deactivate</b> – Control whether the plan is available for sale.</li>
+                    <li><b>Set as Default</b> – Choose which plan new users are assigned by default.</li>
+                    <li><b>Delete</b> – Retire unused test or legacy plans (where allowed).</li>
+                  </ul>
+                  <h4>Best Practices</h4>
+                  <ul>
+                    <li>Keep a clear separation between entry, growth and enterprise plans.</li>
+                    <li>Align limits with WhatsApp API pricing and your server capacity.</li>
+                    <li>Use feature flags to upsell advanced automation and integrations.</li>
+                    <li>Always test new plans using a test user before going live.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row footer-theme partition-f">
+          <div class="col-12">
+            Copyright 2026 © WAPI - WhatsApp Marketing Platform by PixelStrap
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="bg-overlay"></div>
+  </body>
+  <script src="assets/js/jquery-3.5.1.min.js"></script>
+  <script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/icons/feather-icon/feather.min.js"></script>
+  <script src="assets/js/icons/feather-icon/feather-icon.js"></script>
+  <script src="assets/js/document/main.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/global-search.js"></script>
+</html>
+
