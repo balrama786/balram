@@ -1,0 +1,77 @@
+"use client";
+
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/src/elements/ui/dialog";
+import { ExternalLink, Info } from "lucide-react";
+import { cn } from "@/src/lib/utils";
+import { Button } from "@/src/elements/ui/button";
+import { INFOMODALDATE } from "@/src/data/InfoModalData";
+
+interface InfoModalProps {
+  dataKey: keyof typeof INFOMODALDATE;
+  className?: string;
+  iconSize?: number;
+}
+
+const InfoModal = ({ dataKey, className, iconSize = 20 }: InfoModalProps) => {
+  const data = INFOMODALDATE[dataKey];
+
+  if (!data) return null;
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button className={cn("text-gray-400 hover:text-primary transition-colors cursor-pointer outline-none", className)} aria-label={`View info for ${data.title}`}>
+          <Info size={iconSize} />
+        </button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-125 p-0! overflow-hidden border-none bg-white dark:bg-(--card-color)">
+        <div className="bg-primary/5 p-6 border-b border-primary/10">
+          <DialogHeader className="space-y-1">
+            <div className="flex items-center gap-2 text-primary">
+              <Info size={24} className="shrink-0" />
+              <DialogTitle className="text-xl font-bold tracking-tight">{data.title}</DialogTitle>
+            </div>
+            <DialogDescription className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{data.description}</DialogDescription>
+          </DialogHeader>
+        </div>
+
+        <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+          {data.content.map((item, index) => (
+            <div key={index} className="group p-4 rounded-xl bg-gray-50 dark:bg-(--page-body-bg) border border-gray-100 dark:border-(--card-border-color) hover:border-primary/20 hover:bg-white dark:hover:bg-(--card-color) transition-all duration-200">
+              <h4 className="text-sm font-bold text-gray-900 dark:text-gray-200 mb-1.5 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
+                {item.label}
+              </h4>
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-medium">{item.value}</p>
+            </div>
+          ))}
+
+          {data.externalLink && (
+            <div className="p-5 rounded-xl bg-primary/5 border border-primary/20 mt-2">
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <h4 className="text-sm font-bold text-primary flex items-center gap-2">
+                    <ExternalLink size={14} />
+                    {data.externalLink.label}
+                  </h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{data.externalLink.description}</p>
+                </div>
+                <Button size="sm" variant="outline" className="shrink-0 h-8 text-[10px] font-bold border-primary/30 text-primary hover:bg-primary hover:text-white transition-all cursor-pointer" onClick={() => window.open(data.externalLink?.url, "_blank")}>
+                  Visit Link
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="px-6 py-4 bg-gray-50/50 dark:bg-(--page-body-bg)/50 border-t border-gray-100 dark:border-(--card-border-color) flex justify-end">
+          <DialogClose asChild>
+            <Button className="px-6 h-10 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors shadow-sm cursor-pointer border-none">Got it</Button>
+          </DialogClose>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default InfoModal;

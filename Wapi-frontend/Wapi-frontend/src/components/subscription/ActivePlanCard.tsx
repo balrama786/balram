@@ -1,0 +1,63 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Badge } from "@/src/elements/ui/badge";
+import { CardHeader } from "@/src/elements/ui/card";
+import { ActivePlanCardProps } from "@/src/types/subscription";
+import { Calendar, ShieldCheck } from "lucide-react";
+import React from "react";
+
+const ActivePlanCard: React.FC<ActivePlanCardProps> = ({ currentSubscription }) => {
+  const isCancelled = currentSubscription?.cancelled_at && !currentSubscription?.auto_renew;
+
+  return (
+    <CardHeader className="flex flex-col md:flex-row items-center justify-between p-4 border-b border-slate-100 dark:border-(--card-border-color) gap-6 bg-white dark:bg-(--page-body-bg)">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full gap-6">
+        <div className="flex items-center gap-5 sm:mr-auto mr-[unset] flex-col sm:flex-row">
+          <div className="w-16 h-16 rounded-lg bg-slate-50 dark:bg-(--dark-body) flex items-center justify-center text-slate-600 dark:text-slate-400 border border-slate-100 dark:border-none">
+            <ShieldCheck className="h-8 w-8 text-primary" />
+          </div>
+          <div className="text-center md:text-left">
+            <div className="flex flex-wrap items-center justify-start gap-3">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Current Plan</h3>
+              <Badge variant="outline" className="border-emerald-500/20 text-primary bg-emerald-50 dark:bg-transparent font-bold px-3 py-0.5 rounded-lg text-[10px] uppercase tracking-wider">
+                {(currentSubscription.plan_id as any)?.name || "N/A"}
+              </Badge>
+            </div>
+            <div className="flex items-center justify-start gap-4 mt-1.5 flex-wrap">
+              <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                Status: <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                <span className="font-bold text-slate-700 dark:text-slate-300">{currentSubscription.status}</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                <Calendar className="h-3.5 w-3.5" />
+                <span className="dark:text-gray-400">
+                  {isCancelled ? "Expires " : "Renewing "}
+                  {new Date(currentSubscription.current_period_end).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {isCancelled && (
+          <div className="flex-1 max-w-lg bg-amber-50 dark:bg-orange-900/20 border border-amber-200 dark:border-none rounded-lg p-4 animate-in fade-in slide-in-from-right-4 duration-500 ml-auto">
+            <div className="flex items-start gap-3">
+              <div className="p-2 bg-amber-100 dark:bg-orange-400/50 rounded-lg mt-0.5">
+                <Calendar className="h-4 w-4 text-amber-600 dark:text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-amber-900 dark:text-orange-100">Subscription Cancelled</p>
+                <p className="text-xs text-amber-700 dark:text-orange-400 mt-1 leading-relaxed">
+                  Your access will remain active until <span className="font-bold">{new Date(currentSubscription.current_period_end).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</span>. {"You won't be charged again."}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </CardHeader>
+  );
+};
+
+export default ActivePlanCard;

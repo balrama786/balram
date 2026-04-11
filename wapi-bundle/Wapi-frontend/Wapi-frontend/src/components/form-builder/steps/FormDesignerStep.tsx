@@ -1,0 +1,67 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useFormikContext } from "formik";
+import { useState } from "react";
+import FieldListSidebar from "@/src/components/form-builder/designer/FieldListSidebar";
+import FormCanvas from "@/src/components/form-builder/designer/FormCanvas";
+import FieldPropertiesSidebar from "@/src/components/form-builder/designer/FieldPropertiesSidebar";
+
+const FormDesignerStep = () => {
+  const { values, setFieldValue } = useFormikContext<any>();
+  const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
+  const [activeStep, setActiveStep] = useState(1);
+
+  const handleAddField = (field: any) => {
+    const fieldsInActiveStep = values.fields.filter((f: any) => f.step === activeStep);
+    const newField = {
+      ...field,
+      id: `field_${Math.random().toString(36).substr(2, 9)}`,
+      order: fieldsInActiveStep.length + 1,
+      step: activeStep,
+    };
+    setFieldValue("fields", [...values.fields, newField]);
+    setSelectedFieldId(newField.id);
+  };
+
+  const handleUpdateField = (fieldId: string, updates: Record<string, any>) => {
+    const updatedFields = values.fields.map((f: any) => (f.id === fieldId ? { ...f, ...updates } : f));
+    setFieldValue("fields", updatedFields);
+  };
+
+  const handleDeleteField = (fieldId: string) => {
+    const updatedFields = values.fields.filter((f: any) => f.id !== fieldId);
+    setFieldValue("fields", updatedFields);
+    if (selectedFieldId === fieldId) {
+      setSelectedFieldId(null);
+    }
+  };
+
+  const handleReorderFields = (reorderedFieldsInStep: any[]) => {
+    const otherFields = values.fields.filter((f: any) => f.step !== activeStep);
+    const updatedFieldsInStep = reorderedFieldsInStep.map((f, i) => ({ ...f, order: i + 1 }));
+    setFieldValue("fields", [...otherFields, ...updatedFieldsInStep]);
+  };
+
+  const handleAddStep = () => {
+    const maxStep = values.fields.reduce((max: number, f: any) => Math.max(max, f.step || 1), 1);
+    setActiveStep(maxStep + 1);
+  };
+
+  const selectedField = values.fields.find((f: any) => f.id === selectedFieldId);
+  const fieldsInActiveStep = values.fields
+    .filter((f: any) => f.step === activeStep)
+    .sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+
+  return (
+    <div className="flex flex-col xl:flex-row h-[calc(100vh-350px)]  min-h-150 gap-4 animate-in fade-in zoom-in-95 duration-500 mb-4">
+      <FieldListSidebar onAddField={handleAddField} />
+
+      <FormCanvas fields={fieldsInActiveStep} allFields={values.fields} onSelectField={setSelectedFieldId} selectedFieldId={selectedFieldId} onDeleteField={handleDeleteField} onReorderFields={handleReorderFields} isMultiStep={values.is_multi_step} activeStep={activeStep} onStepChange={setActiveStep} onAddStep={handleAddStep} />
+
+      <FieldPropertiesSidebar field={selectedField} onUpdateField={(updates) => handleUpdateField(selectedFieldId!, updates)} />
+    </div>
+  );
+};
+
+export default FormDesignerStep;

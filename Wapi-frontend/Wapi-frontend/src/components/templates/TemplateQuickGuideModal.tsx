@@ -1,0 +1,114 @@
+"use client";
+
+import { GuideTopic, TEMPLATEGUIDEDATA } from "@/src/data/TemplateGuideData";
+import { Button } from "@/src/elements/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/src/elements/ui/dialog";
+import { ArrowLeft, BookOpen, ChevronRight, HelpCircle } from "lucide-react";
+import { useState } from "react";
+
+const TemplateQuickGuideModal = () => {
+  const [selectedTopic, setSelectedTopic] = useState<GuideTopic | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
+      setTimeout(() => setSelectedTopic(null), 300);
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <DialogTrigger asChild>
+        <button className="w-full mt-auto p-4 border-t border-slate-100 dark:border-(--card-border-color) hover:bg-slate-50 dark:hover:bg-(--table-hover) transition-all duration-200 group text-left cursor-pointer outline-none">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform">
+              <BookOpen size={16} />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">Quick Guide</p>
+              <p className="text-[11px] text-slate-500 dark:text-gray-400 leading-tight">Learn how to create & format templates</p>
+            </div>
+          </div>
+        </button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-150 p-0! overflow-hidden border-none bg-white dark:bg-(--card-color)">
+        <div className="bg-primary/5 p-6 border-b border-primary/10">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3 text-primary">
+              {selectedTopic ? (
+                <button onClick={() => setSelectedTopic(null)} className="w-9 h-9 rounded-full bg-white dark:bg-primary/20 flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm cursor-pointer group">
+                  <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+                </button>
+              ) : (
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-primary/20 flex items-center justify-center shadow-sm">
+                  <HelpCircle size={24} />
+                </div>
+              )}
+              <div className="space-y-0.5">
+                <DialogTitle className="text-xl font-bold tracking-tight">{selectedTopic ? selectedTopic.title : "Quick Guide"}</DialogTitle>
+                <DialogDescription className="text-gray-500 dark:text-gray-400 text-xs font-medium">{selectedTopic ? "Educational Resource" : "Master the art of WhatsApp template messages"}</DialogDescription>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
+          {!selectedTopic ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-in fade-in zoom-in-95 duration-200">
+              {TEMPLATEGUIDEDATA.map((topic) => (
+                <button key={topic.id} onClick={() => setSelectedTopic(topic)} className="flex flex-col items-start p-5 rounded-2xl bg-gray-50 dark:bg-(--page-body-bg) border border-gray-100 dark:border-(--card-border-color) hover:border-primary/30 hover:bg-white dark:hover:bg-(--card-color) group transition-all duration-300 text-left shadow-xs hover:shadow-md cursor-pointer relative overflow-hidden">
+                  <div className="w-12 h-12 rounded-xl bg-white dark:bg-(--dark-header) flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">{topic.icon}</div>
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100 mb-2 leading-tight pr-6">{topic.title}</h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2">{topic.shortDesc}</p>
+                  <ChevronRight size={16} className="absolute bottom-5 right-5 text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
+              {selectedTopic.content.map((block, idx) => (
+                <div key={idx} className="space-y-3 p-4 rounded-xl bg-slate-50/50 dark:bg-(--dark-body)/30 border border-slate-100 dark:border-(--card-border-color)">
+                  {block.subtitle && <h5 className="text-[13px] font-bold text-primary flex items-center gap-2">{block.subtitle}</h5>}
+                  {block.text && <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-medium">{block.text}</p>}
+                  {block.points && (
+                    <ul className="space-y-2.5">
+                      {block.points.map((pt, pIdx) => (
+                        <li key={pIdx} className="flex items-start gap-2.5 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mt-1.5 shrink-0" />
+                          {pt}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {block.example && (
+                    <div className="p-3 bg-primary/5 border ltr:border-l-4 rtl:border-r-4 border-primary rounded text-xs font-mono text-primary leading-relaxed">
+                      <p className="font-bold mb-1 uppercase tracking-tighter opacity-70">Example:</p>
+                      {block.example}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="px-6 py-4 bg-gray-50/50 dark:bg-(--page-body-bg)/50 border-t border-gray-100 dark:border-(--card-border-color) flex justify-between items-center">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">WAPI Documentation</p>
+          <div className="flex gap-2">
+            {selectedTopic && (
+              <Button variant="outline" size="sm" onClick={() => setSelectedTopic(null)} className="h-9 px-4 text-xs font-bold border-gray-200 dark:border-primary/20 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-primary/10 transition-colors cursor-pointer">
+                Back to Topics
+              </Button>
+            )}
+            <Button size="sm" onClick={() => handleOpenChange(false)} className="h-9 px-6 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-all shadow-sm cursor-pointer border-none">
+              Got it
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default TemplateQuickGuideModal;

@@ -1,0 +1,60 @@
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/src/elements/ui/dialog";
+import { SubmissionDetailsResponse } from "@/src/types/submission";
+import { format } from "date-fns";
+import React from "react";
+
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+  data: SubmissionDetailsResponse["data"] | null;
+  isLoading: boolean;
+}
+
+const SubmissionDetailsModal: React.FC<Props> = ({ isOpen, onClose, data, isLoading }) => {
+  if (!data && !isLoading) return null;
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-2xl bg-white dark:bg-(--card-color) p-0 overflow-hidden border-slate-200 dark:border-(--card-border-color)">
+        <DialogHeader className="p-6 bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+          <DialogTitle className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            Submission Details
+            {data?.status && <span className="text-[10px] uppercase px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold">{data.status.replace(/_/g, " ")}</span>}
+          </DialogTitle>
+          <div className="flex flex-col gap-1 mt-1">
+            <p className="text-xs text-slate-500 dark:text-gray-400">
+              Submitted by <span className="font-semibold">{data?.phone}</span> on {data?.submitted_at ? format(new Date(data.submitted_at), "PPP p") : "N/A"}
+            </p>
+          </div>
+        </DialogHeader>
+
+        <div className="p-6 max-h-[70vh] overflow-y-auto">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-10">
+              <div className="loading loading-spinner text-primary"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {data?.fields.map((field, idx) => (
+                <div key={idx} className="space-y-1.5 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800/50">
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-gray-500 uppercase tracking-wider">{field.label}</label>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white wrap-break-word">{typeof field.value === "object" ? JSON.stringify(field.value) : String(field.value || "—")}</p>
+                </div>
+              ))}
+
+              {data?.fields.length === 0 && <div className="col-span-full py-10 text-center text-slate-400">No data fields found for this submission.</div>}
+            </div>
+          )}
+        </div>
+
+        <div className="p-4 bg-slate-50 dark:bg-slate-800/30 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+          <button onClick={onClose} className="px-6 py-2 rounded-lg font-bold text-sm bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-(--table-hover) transition-all">
+            Close
+          </button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default SubmissionDetailsModal;

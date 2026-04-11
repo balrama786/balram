@@ -1,0 +1,126 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Button } from "@/src/elements/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/src/elements/ui/dialog";
+import { Label } from "@/src/elements/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
+import { Switch } from "@/src/elements/ui/switch";
+import { useGetWabaPhoneNumbersQuery } from "@/src/redux/api/whatsappApi";
+import { useGetCallSettingsQuery, useUpdateCallSettingsMutation } from "@/src/redux/api/whatsappCallingApi";
+import { useAppSelector } from "@/src/redux/hooks";
+import { Loader2, Phone, Settings2, ShieldCheck } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
+
+interface CallSettingsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const CallSettingsModal = ({ isOpen, onClose }: CallSettingsModalProps) => {
+  const { selectedWorkspace } = useAppSelector((state) => state.workspace);
+  const selectedWabaId = selectedWorkspace?.waba_id;
+
+  const [selectedPhoneId, setSelectedPhoneId] = useState<string>("");
+
+  const { data: phoneNumbersData, isLoading: isLoadingPhones } = useGetWabaPhoneNumbersQuery(selectedWabaId || "", {
+    skip: !isOpen || !selectedWabaId,
+  });
+
+  const phoneNumbers = useMemo(() => {
+    return (phoneNumbersData as any)?.data || [];
+  }, [phoneNumbersData]);
+
+  useEffect(() => {
+    if (phoneNumbers.length > 0 && !selectedPhoneId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelectedPhoneId(String(phoneNumbers[0].id));
+    }
+  }, [phoneNumbers, selectedPhoneId]);
+
+  const { data: settingsData, isLoading: isLoadingSettings, isFetching: isFetchingSettings } = useGetCallSettingsQuery({ phone_number_id: selectedPhoneId }, { skip: !isOpen || !selectedPhoneId });
+
+  const [updateSettings, { isLoading: isUpdating }] = useUpdateCallSettingsMutation();
+
+  const settings = settingsData?.data;
+
+  const handleToggleStatus = async (checked: boolean) => {
+    try {
+      await updateSettings({
+        phone_number_id: selectedPhoneId,
+        calling_status: checked ? "ENABLED" : "DISABLED",
+        call_icon_visibility: settings?.call_icon_visibility || "DEFAULT",
+      }).unwrap();
+      toast.success(`Calling ${checked ? "enabled" : "disabled"} successfully`);
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to update settings");
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-125 p-0! overflow-hidden rounded-2xl border-none shadow-2xl gap-0">
+        <DialogHeader className="p-6">
+          <DialogTitle className="flex items-center gap-3 text-xl font-bold">
+            <div className="p-2 bg-primary/20 rounded-lg">
+              <Settings2 size={24} className="text-primary" />
+            </div>
+            <div className="flex flex-col">
+              AI Call Settings
+              <p className="text-slate-400 text-sm mt-1">Configure global calling settings for your phone numbers.</p>
+            </div>
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="p-6 space-y-8">
+          <div className="space-y-3">
+            <Label className="text-sm font-bold text-slate-700 flex items-center gap-2">
+              <Phone size={14} className="text-slate-400" />
+              Select WABA Phone Number
+            </Label>
+            <Select value={selectedPhoneId} onValueChange={setSelectedPhoneId}>
+              <SelectTrigger className="h-12 py-6 rounded-lg bg-slate-50 border-slate-200 focus:ring-primary/10">
+                <SelectValue placeholder={isLoadingPhones ? "Loading numbers..." : "Select Phone Number"} />
+              </SelectTrigger>
+              <SelectContent>
+                {phoneNumbers.map((phone: any) => (
+                  <SelectItem key={phone.id} value={String(phone.id)}>
+                    {phone.display_phone_number || phone.phone_number}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="font-bold text-slate-900 flex items-center gap-2">
+                  <ShieldCheck size={16} className="text-emerald-500" />
+                  AI Calling Status
+                </p>
+                <p className="text-xs text-slate-500">Enable or disable AI voice calls for this number.</p>
+              </div>
+              {isLoadingSettings || isFetchingSettings ? <Loader2 className="animate-spin text-primary" size={20} /> : <Switch disabled={!settings || isUpdating} checked={settings?.calling_status === "ENABLED"} onCheckedChange={handleToggleStatus} />}
+            </div>
+
+            {!isLoadingSettings && !settings && selectedPhoneId && (
+              <div className="p-4 bg-amber-50 rounded-xl border border-amber-100">
+                <p className="text-xs text-amber-700 font-medium">No settings found for this phone number. Please contact support if this persists.</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="p-6 bg-slate-50 border-t flex justify-end">
+          <Button variant="outline" className="rounded-xl h-11 px-8 font-bold" onClick={onClose}>
+            Close
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default CallSettingsModal;

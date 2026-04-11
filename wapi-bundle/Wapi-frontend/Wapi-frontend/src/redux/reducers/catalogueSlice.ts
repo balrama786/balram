@@ -1,0 +1,32 @@
+import { Product } from "@/src/types/components/catalogue";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface CatalogueState {
+  editingProduct: Product | null;
+  selectedWabaId: string;
+}
+
+const initialState: CatalogueState = {
+  editingProduct: null,
+  selectedWabaId: "",
+};
+
+const catalogueSlice = createSlice({
+  name: "catalogue",
+  initialState,
+  reducers: {
+    setEditingProduct: (state, action: PayloadAction<Product | null>) => {
+      state.editingProduct = action.payload;
+    },
+    clearEditingProduct: (state) => {
+      state.editingProduct = null;
+    },
+    setSelectedWabaId: (state, action: PayloadAction<string>) => {
+      state.selectedWabaId = action.payload;
+    },
+  },
+});
+
+export const { setEditingProduct, clearEditingProduct, setSelectedWabaId } = catalogueSlice.actions;
+
+export default catalogueSlice.reducer;

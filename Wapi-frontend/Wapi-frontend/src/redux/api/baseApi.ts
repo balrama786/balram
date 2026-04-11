@@ -1,0 +1,58 @@
+import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
+import { getSession, signOut } from "next-auth/react";
+import { setLogout } from "../reducers/authSlice";
+import { resetChatState } from "../reducers/messenger/chatSlice";
+import { clearWorkspace } from "../reducers/workspaceSlice";
+
+const API_BASE_URL = typeof window === "undefined" ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api" : process.env.NEXT_PUBLIC_API_BASE_URL || "/api";
+
+const EXPIRATION_MESSAGES = ["Session expired or logged out", "Token is invalid or expired", "Session expired", "Token expired", "Please log in again", "Invalid token: user not found"];
+
+const getCachedSession = async () => {
+  if (typeof window === "undefined") return null;
+  return getSession();
+};
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: API_BASE_URL,
+  prepareHeaders: async (headers) => {
+    const session = await getCachedSession();
+    if (session?.accessToken) {
+      headers.set("Authorization", `Bearer ${session.accessToken}`);
+    }
+    return headers;
+  },
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isSessionExpired = (message: any): boolean => {
+  if (typeof message !== "string") return false;
+  return EXPIRATION_MESSAGES.some((expMsg) => message.toLowerCase().includes(expMsg.toLowerCase()));
+};
+
+const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions);
+
+  if (result.error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data = result.error.data as any;
+    const message = data?.error || data?.message || "";
+
+    if (isSessionExpired(message)) {
+      api.dispatch(resetChatState());
+      api.dispatch(clearWorkspace());
+      api.dispatch(setLogout());
+
+      signOut({ callbackUrl: "/auth/login", redirect: true });
+    }
+  }
+
+  return result;
+};
+
+export const baseApi = createApi({
+  reducerPath: "api",
+  tagTypes: ["Chats", "Messages", "WhatsappCallAgent", "WhatsappCallLog"],
+  baseQuery: baseQueryWithLogout,
+  endpoints: () => ({}),
+});

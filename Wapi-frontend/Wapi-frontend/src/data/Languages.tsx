@@ -1,0 +1,72 @@
+export interface Language {
+  name: string;
+  code: string;
+  flag: string;
+  countryCode: string;
+}
+
+export const LANGUAGES: Language[] = [
+  { name: "English", code: "en", flag: "🇺🇸", countryCode: "us" },
+  { name: "Spanish", code: "es", flag: "🇪🇸", countryCode: "es" },
+  { name: "French", code: "fr", flag: "🇫🇷", countryCode: "fr" },
+  { name: "German", code: "de", flag: "🇩🇪", countryCode: "de" },
+  { name: "Italian", code: "it", flag: "🇮🇹", countryCode: "it" },
+  { name: "Portuguese", code: "pt", flag: "🇵🇹", countryCode: "pt" },
+  { name: "Dutch", code: "nl", flag: "🇳🇱", countryCode: "nl" },
+  { name: "Russian", code: "ru", flag: "🇷🇺", countryCode: "ru" },
+
+  { name: "Chinese", code: "zh", flag: "🇨🇳", countryCode: "cn" },
+  { name: "Japanese", code: "ja", flag: "🇯🇵", countryCode: "jp" },
+  { name: "Korean", code: "ko", flag: "🇰🇷", countryCode: "kr" },
+
+  { name: "Arabic", code: "ar", flag: "🇸🇦", countryCode: "sa" },
+  { name: "Hindi", code: "hi", flag: "🇮🇳", countryCode: "in" },
+  { name: "Urdu", code: "ur", flag: "🇵🇰", countryCode: "pk" },
+
+  { name: "Turkish", code: "tr", flag: "🇹🇷", countryCode: "tr" },
+  { name: "Vietnamese", code: "vi", flag: "🇻🇳", countryCode: "vn" },
+  { name: "Thai", code: "th", flag: "🇹🇭", countryCode: "th" },
+  { name: "Indonesian", code: "id", flag: "🇮🇩", countryCode: "id" },
+  { name: "Malay", code: "ms", flag: "🇲🇾", countryCode: "my" },
+
+  { name: "Bengali", code: "bn", flag: "🇧🇩", countryCode: "bd" },
+  { name: "Punjabi", code: "pa", flag: "🇮🇳", countryCode: "in" },
+  { name: "Tamil", code: "ta", flag: "🇮🇳", countryCode: "in" },
+  { name: "Telugu", code: "te", flag: "🇮🇳", countryCode: "in" },
+  { name: "Marathi", code: "mr", flag: "🇮🇳", countryCode: "in" },
+
+  { name: "Persian (Farsi)", code: "fa", flag: "🇮🇷", countryCode: "ir" },
+  { name: "Hebrew", code: "he", flag: "🇮🇱", countryCode: "il" },
+
+  { name: "Polish", code: "pl", flag: "🇵🇱", countryCode: "pl" },
+  { name: "Czech", code: "cs", flag: "🇨🇿", countryCode: "cz" },
+  { name: "Slovak", code: "sk", flag: "🇸🇰", countryCode: "sk" },
+  { name: "Hungarian", code: "hu", flag: "🇭🇺", countryCode: "hu" },
+  { name: "Romanian", code: "ro", flag: "🇷🇴", countryCode: "ro" },
+  { name: "Bulgarian", code: "bg", flag: "🇧🇬", countryCode: "bg" },
+  { name: "Ukrainian", code: "uk", flag: "🇺🇦", countryCode: "ua" },
+  { name: "Greek", code: "el", flag: "🇬🇷", countryCode: "gr" },
+
+  { name: "Swedish", code: "sv", flag: "🇸🇪", countryCode: "se" },
+  { name: "Norwegian", code: "no", flag: "🇳🇴", countryCode: "no" },
+  { name: "Danish", code: "da", flag: "🇩🇰", countryCode: "dk" },
+  { name: "Finnish", code: "fi", flag: "🇫🇮", countryCode: "fi" },
+  { name: "Icelandic", code: "is", flag: "🇮🇸", countryCode: "is" },
+
+  { name: "Swahili", code: "sw", flag: "🇰🇪", countryCode: "ke" },
+  { name: "Afrikaans", code: "af", flag: "🇿🇦", countryCode: "za" },
+  { name: "Zulu", code: "zu", flag: "🇿🇦", countryCode: "za" },
+  { name: "Xhosa", code: "xh", flag: "🇿🇦", countryCode: "za" },
+
+  { name: "Filipino", code: "tl", flag: "🇵🇭", countryCode: "ph" },
+  { name: "Khmer", code: "km", flag: "🇰🇭", countryCode: "kh" },
+  { name: "Lao", code: "lo", flag: "🇱🇦", countryCode: "la" },
+  { name: "Burmese", code: "my", flag: "🇲🇲", countryCode: "mm" },
+  { name: "Nepali", code: "ne", flag: "🇳🇵", countryCode: "np" },
+
+  { name: "Irish", code: "ga", flag: "🇮🇪", countryCode: "ie" },
+  { name: "Welsh", code: "cy", flag: "🇬🇧", countryCode: "gb" },
+  { name: "Basque", code: "eu", flag: "🇪🇸", countryCode: "es" },
+  { name: "Catalan", code: "ca", flag: "🇪🇸", countryCode: "es" },
+];
+

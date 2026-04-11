@@ -1,0 +1,576 @@
+/**=====================
+     Dark CSS Start
+==========================**/
+body {
+  &.dark-only {
+    background-color: $dark-body-background;
+    color: $dark-all-font-color;
+    .form-control,
+    .form-select {
+      background-color: $dark-body-background;
+      color: $dark-all-font-color;
+      border-color: $dark-card-border;
+    }
+    .steps-content {
+      background-color: $dark-body-background;
+      .icon {
+        background-color: $dark-card-background;
+        i {
+          color: $white;
+        }
+      }
+    }
+    p {
+      b {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
+    .steps-box .steps-content .icon img {
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(82deg)
+        brightness(105%) contrast(105%);
+    }
+    .info-box {
+      color: #15b1dc !important;
+      b {
+        color: #15b1dc !important;
+      }
+      p {
+        color: #15b1dc !important;
+        b {
+          color: #15b1dc !important;
+        }
+      }
+      h4 {
+        color: #15b1dc !important;
+      }
+    }
+    .feature-grid {
+      .feature-card {
+        background-color: $dark-body-background;
+      }
+    }
+    .core-features {
+      background-color: $dark-body-background;
+    }
+    footer {
+      background-color: $dark-card-background;
+    }
+    .select2-container--default {
+      .select2-selection--multiple {
+        background-color: $dark-card-background;
+        color: $dark-all-font-color;
+      }
+    }
+    .apexcharts-tooltip {
+      &.light {
+        border: 1px solid $dark-card-border;
+        background: $dark-card-background;
+        .apexcharts-tooltip-title {
+          background: $dark-card-background;
+          border-bottom-color: $dark-card-border;
+        }
+      }
+    }
+    .select2-dropdown {
+      background-color: $dark-card-background;
+      border-color: $dark-card-border;
+    }
+    span.twitter-typeahead {
+      .tt-menu,
+      .tt-suggestion {
+        background-color: $dark-card-background;
+      }
+      .tt-suggestion {
+        border-top-color: $dark-card-border;
+        color: $dark-all-font-color;
+      }
+    }
+    .checkbox,
+    .radio {
+      label {
+        &::before {
+          background-color: $dark-card-background;
+          border-color: $dark-card-border;
+        }
+      }
+    }
+    .content {
+      p {
+        color: $dark-all-font-color;
+      }
+    }
+    .layout-box {
+      border-color: $dark-card-border;
+    }
+    .dark-block {
+      background-color: rgba(233, 233, 233, 0.1);
+      border-left: 5px solid rgba(29, 30, 38, 1);
+    }
+    .warning-block {
+      color: #c1c1c1 !important;
+    }
+    .default-according {
+      .card {
+        .card-header,
+        .card-body {
+          border-color: $dark-card-border;
+        }
+        .btn-link {
+          color: $dark-all-font-color !important;
+        }
+      }
+    }
+    .team-admin-box h6 b {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .table-border {
+      border-color: $dark-card-border;
+    }
+    .table-border-vertical {
+      tr,
+      th,
+      td {
+        border-right-color: $dark-card-border;
+      }
+    }
+    .core-features {
+      .features-hide-content {
+        &::after {
+          background: linear-gradient(
+            180deg,
+            rgba($dark-body-background, 0) 0%,
+            rgba($dark-body-background, 1) 90%,
+            rgba($dark-body-background, 1) 100%
+          );
+        }
+        li {
+          b {
+            color: rgba(255, 255, 255, 0.7);
+          }
+          i {
+            color: rgba(255, 255, 255, 0.7);
+          }
+          + li {
+            border-top-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+    }
+    .deployment-steps {
+      h4 {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    .admin-credential,
+    .vendor-credential,
+    .customer-credential {
+      h4 {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    .code-block {
+      border-color: rgba(255, 255, 255, 0.2);
+      background-color: $dark-body-background;
+      ul {
+        li {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+    .installation-steps-container {
+      h3 {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    .main-sub-title {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    .project-option {
+      border-color: rgba(255, 255, 255, 0.1);
+      h5 {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+    .home-section {
+      .form-control {
+        border: 1px solid #011314;
+      }
+      .input-group-text {
+        background-color: #353643;
+        border-color: #353643;
+        color: $white;
+      }
+    }
+
+    footer {
+      border-color: #4d4d4f;
+    }
+
+    .left-sidebar {
+      &.right-part {
+        border-color: #4d4d4f;
+      }
+    }
+    .sidebar-accordion {
+      --bs-accordion-bg: transparent;
+    }
+    .nav-link {
+      color: $dark-all-font-color !important;
+
+      &.active {
+        color: $primary-color !important;
+      }
+    }
+
+    :not(pre) > code[class*="language-"],
+    pre[class*="language-"] {
+      background: $dark-body-background;
+    }
+
+    code[class*="language-"],
+    pre[class*="language-"] {
+      text-shadow: unset;
+      color: $dark-all-font-color;
+    }
+
+    .code-box-copy__btn {
+      background-color: $dark-card-background;
+      border-color: $dark-card-border;
+      color: $dark-all-font-color;
+    }
+
+    .code-box-copy {
+      pre[class*="language-"] {
+        border: 1px solid $dark-card-border;
+      }
+    }
+
+    .nav-tabs {
+      // border-bottom: 1px solid $dark-card-border;
+
+      .nav-link.active,
+      .nav-item.show .nav-link {
+        background-color: $dark-card-background;
+        border-color: $dark-card-border $dark-card-border $dark-card-background;
+      }
+
+      .nav-link {
+        &:hover {
+          border-color: $dark-card-border $dark-card-border
+            $dark-card-background;
+        }
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .left-sidebar {
+      --bs-accordion-bg: transparent;
+      /* ===== Scrollbar CSS ===== */
+      /* Firefox */
+      * {
+        scrollbar-color: #534b4b #797373;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #292e43;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #353643;
+        border: 0px solid #ffffff;
+      }
+    }
+
+    .parent-title,
+    .main-title {
+      color: $dark-all-font-color;
+    }
+
+    .navbar-toggler {
+      color: $dark-all-font-color;
+    }
+
+    .parent-title {
+      background-color: $dark-card-background;
+    }
+
+    .quick-links {
+      h5 {
+        background-color: $dark-card-background;
+      }
+    }
+
+    article {
+      .main-title {
+        color: $primary-color;
+      }
+    }
+
+    .toggle_btn {
+      background: #323743;
+      color: $dark-all-font-color;
+    }
+
+    .toggle_body {
+      border: 1px solid $dark-card-border;
+      border-top: 0;
+
+      &.card-body {
+        border: none;
+      }
+    }
+
+    .change-log-content {
+      .log-version-info {
+        .log-version {
+          background: $dark-body-background;
+        }
+
+        .log-line {
+          background: $dark-card-background;
+        }
+      }
+    }
+
+    .doc_accordion {
+      .card-header {
+        button {
+          background: #323743;
+          color: $dark-all-font-color;
+        }
+      }
+    }
+
+    .token.entity,
+    .token.operator,
+    .token.url {
+      background-color: transparent;
+    }
+
+    .framworks-list {
+      .box {
+        background-color: $dark-card-background;
+      }
+    }
+
+    .menu {
+      > .nav-item {
+        > .nav-link {
+          color: $dark-all-font-color;
+        }
+
+        &.active {
+          > .nav-link {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+
+    .direct {
+      .nav-link {
+        background-color: $dark-card-background;
+        color: $dark-all-font-color;
+      }
+    }
+
+    .nav-sidebar {
+      > .nav-item {
+        .title {
+          color: $dark-all-font-color;
+        }
+      }
+    }
+
+    .toggle-code {
+      a:hover {
+        color: #059669;
+      }
+    }
+
+    .right-log-content {
+      .log-download-links {
+        border-top: 1px solid $dark-card-border;
+      }
+    }
+
+    .table {
+      border-color: $dark-card-border;
+
+      td,
+      tbody th {
+        color: $dark-all-font-color;
+      }
+
+      > :not(:last-child) > :last-child > * {
+        border-bottom-color: $dark-card-border;
+      }
+    }
+    table.dataTable {
+      border-color: $dark-card-border;
+      tbody {
+        tr {
+          background-color: $dark-body-background;
+        }
+      }
+      &.row-border,
+      &.display {
+        tbody {
+          th,
+          td {
+            border-top: 1px solid $dark-card-border;
+          }
+        }
+      }
+      &.stripe,
+      &.display {
+        tbody {
+          tr.odd {
+            background-color: $dark-card-background;
+          }
+        }
+      }
+      &.display {
+        tbody {
+          tr {
+            &:hover {
+              background-color: $dark-card-background;
+            }
+          }
+        }
+      }
+    }
+    .dataTables_wrapper {
+      label {
+        color: $dark-all-font-color;
+      }
+      table.dataTable {
+        thead {
+          th,
+          td {
+            border-bottom: 2px solid $dark-card-border;
+          }
+        }
+      }
+      .dataTables_paginate {
+        border-color: $dark-card-border;
+      }
+      .dataTables_filter {
+        input[type="search"] {
+          background-color: $dark-card-background;
+          border-color: $dark-card-border;
+          color: $dark-all-font-color;
+        }
+      }
+    }
+
+    .card {
+      background-color: $dark-card-background;
+
+      .card-header {
+        background-color: $dark-card-background;
+        border-bottom: 1px solid $dark-card-border;
+      }
+    }
+
+    .main-table-sec {
+      .table-wrapper {
+        .table-scroll {
+          table {
+            tr {
+              &:first-child {
+                border-bottom: 1px solid $dark-card-border;
+
+                span {
+                  color: $dark-all-font-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .custom-tabs {
+      .nav-link {
+        background: transparent;
+        border-color: $primary-color;
+      }
+    }
+
+    .page-footer {
+      .page-changes-summary {
+        border-top: 1px solid $dark-card-border;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .menu,
+      .navbar_fixed.menu_one {
+        .nav-item,
+        .menu .nav-item {
+          border-bottom: 1px solid $dark-card-border;
+        }
+      }
+
+      .navbar {
+        .nav-right {
+          .toggle-sidebar {
+            color: $dark-all-font-color;
+          }
+        }
+      }
+
+      .navbar-collapse {
+        background-color: $dark-card-background;
+      }
+
+      .left-sidebar {
+        background: $dark-body-background;
+        box-shadow: 0 0 2px $dark-card-border;
+      }
+    }
+
+    .sidebar-accordion {
+      .accordion-item {
+        .accordion-button {
+          color: white;
+          &::after {
+            filter: brightness(0) invert(1);
+          }
+          &:not(.collapsed) {
+            &::after {
+              filter: brightness(0) invert(1);
+            }
+          }
+        }
+      }
+    }
+    .doc-nav {
+      .nav-item {
+        &.active {
+          .sub-menu {
+            .nav-item {
+              .title {
+                .nav-link {
+                  color: hsla(0, 0%, 100%, 0.7) !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**=====================
+     Dark CSS End
+==========================**/

@@ -1,0 +1,126 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { cn } from "@/src/lib/utils";
+import { Form, GripVertical, Plus, Trash2 } from "lucide-react";
+import { Badge } from "@/src/elements/ui/badge";
+import { Reorder } from "motion/react";
+
+interface FormCanvasProps {
+  fields: any[];
+  allFields: any[];
+  onSelectField: (id: string) => void;
+  selectedFieldId: string | null;
+  onDeleteField: (id: string) => void;
+  onReorderFields: (fields: any[]) => void;
+  isMultiStep?: boolean;
+  activeStep: number;
+  onStepChange: (step: number) => void;
+  onAddStep: () => void;
+}
+
+const FormCanvas: React.FC<FormCanvasProps> = ({
+  fields,
+  allFields,
+  onSelectField,
+  selectedFieldId,
+  onDeleteField,
+  onReorderFields,
+  isMultiStep,
+  activeStep,
+  onStepChange,
+  onAddStep,
+}) => {
+  const steps = Array.from(new Set(allFields.map((f: any) => f.step || 1)));
+  if (steps.length === 0) steps.push(1);
+  const maxStep = Math.max(...steps);
+
+  return (
+    <div className="xl:flex-1 flex-[unset] bg-white dark:bg-(--card-color) border border-slate-200/60 dark:border-(--card-border-color) rounded-lg overflow-hidden flex flex-col shadow-inner">
+      <div className="p-4 border-b border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--card-color) flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center">
+            <Form size={14} className="text-primary" />
+          </div>
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">Form Canvas</h3>
+        </div>
+        <Badge variant="outline" className="font-mono text-[10px] bg-primary/5 text-primary border-primary/20">
+          {fields.length} Fields
+        </Badge>
+      </div>
+
+      {isMultiStep && (
+        <div className="px-4 py-2 border-b border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) flex justify-between items-center gap-2 ">
+          <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar">
+            {Array.from({ length: maxStep }).map((_, i) => (
+              <button key={i} onClick={() => onStepChange(i + 1)} className={cn("px-4 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap border", activeStep === i + 1 ? "bg-primary/10 text-primary border-primary/30 shadow-sm" : "text-slate-500 border-transparent hover:bg-slate-100 dark:hover:bg-(--table-hover)")}>
+                form {i + 1}
+              </button>
+            ))}
+          </div>
+          <button onClick={onAddStep} className="p-1.5 text-primary hover:bg-primary/10 rounded-lg transition-all border border-dashed border-primary/30 active:scale-95 flex items-center gap-1 px-3 text-xs font-bold ml-auto">
+            <Plus size={14} />
+          </button>
+        </div>
+      )}
+
+      <div className="xl:flex-1 flex-[unset] overflow-y-auto sm:p-6 p-4 custom-scrollbar">
+        {fields.length === 0 ? (
+          <div className="h-full flex flex-col items-center justify-center text-slate-400 text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-(--dark-body) flex items-center justify-center mb-2 border border-slate-200/50 dark:border-none shadow-sm animate-pulse">
+              <GripVertical size={24} />
+            </div>
+            <div className="space-y-1">
+              <p className="font-bold text-slate-600 dark:text-slate-400">Step {activeStep} is Empty</p>
+              <p className="text-[11px] max-w-50 text-slate-400">Add fields to this step to build your flow.</p>
+            </div>
+          </div>
+        ) : (
+          <Reorder.Group axis="y" values={fields} onReorder={onReorderFields} className="space-y-3">
+            {fields.map((field, index) => (
+              <Reorder.Item key={field.id} value={field} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.2 }} onClick={() => onSelectField(field.id)} className={cn("group relative bg-white dark:bg-(--page-body-bg) border rounded-lg p-4 transition-all cursor-pointer shadow-sm active:shadow-md", selectedFieldId === field.id ? "border-primary ring-4 ring-primary/5 shadow-primary/5 scale-[1.01] z-10" : "border-slate-200/80 dark:border-(--card-border-color) hover:border-primary/40 dark:hover:border-primary/40")}>
+                <div className="flex items-center gap-4">
+                  <div className="cursor-grab active:cursor-grabbing p-1 text-slate-300 group-hover:text-primary transition-colors">
+                    <GripVertical size={18} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold text-slate-500 font-mono italic opacity-80 uppercase">#{index + 1}</span>
+                      <h4 className="font-bold text-sm text-slate-800 dark:text-slate-100 truncate">{field.label || "Untitled Field"}</h4>
+                      {field.required && <span className="text-red-500 text-xs">*</span>}
+                    </div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge variant="outline" className="text-[9px] font-bold h-4 px-1 bg-slate-50 dark:bg-(--dark-body) uppercase text-slate-500 border-slate-200 dark:border-slate-700">
+                        {field.type}
+                      </Badge>
+                      <span className="text-[10px] text-slate-400 font-mono truncate">{field.name}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDeleteField(field.id);
+                      }}
+                      className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-all active:scale-90"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              </Reorder.Item>
+            ))}
+          </Reorder.Group>
+        )}
+      </div>
+
+      <div className="p-4 bg-slate-50/80 dark:bg-(--card-color) border-t border-slate-200 dark:border-(--card-border-color) text-center backdrop-blur-sm">
+        <p className="text-[10px] text-slate-500 font-medium tracking-tight">
+          Click and drag the <span className="text-primary font-bold">handle</span> to reorder. Settings are auto-saved to draft.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default FormCanvas;

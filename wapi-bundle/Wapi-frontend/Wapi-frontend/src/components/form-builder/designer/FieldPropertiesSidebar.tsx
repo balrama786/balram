@@ -1,0 +1,137 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Badge } from "@/src/elements/ui/badge";
+import { Button } from "@/src/elements/ui/button";
+import { Input } from "@/src/elements/ui/input";
+import { Label } from "@/src/elements/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
+import { Switch } from "@/src/elements/ui/switch";
+import { Plus, Settings2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface FieldPropertiesSidebarProps {
+  field: any | null;
+  onUpdateField: (updates: any) => void;
+}
+
+const FieldPropertiesSidebar: React.FC<FieldPropertiesSidebarProps> = ({ field, onUpdateField }) => {
+  const [localValues, setLocalValues] = useState<any>(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLocalValues(field);
+  }, [field?.id, field]); // Added field to dependencies to sync updates
+
+  if (!field || !localValues) {
+    return (
+      <div className="w-80 bg-white dark:bg-(--card-color) border border-slate-200/60 dark:border-(--card-border-color) rounded-lg p-4 sm:p-6 flex flex-col items-center justify-center text-center">
+        <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-(--dark-body) flex items-center justify-center mb-4">
+          <Settings2 size={32} className="text-slate-300 dark:text-slate-600" />
+        </div>
+        <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400">No Field Selected</h3>
+        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2 max-w-45">Select a component on the canvas to configure its properties and validation.</p>
+      </div>
+    );
+  }
+
+  const handleChange = (key: string, value: any) => {
+    const newValues = { ...localValues, [key]: value };
+    setLocalValues(newValues);
+    onUpdateField({ [key]: value });
+  };
+
+  const handleOptionChange = (id: string, updates: any) => {
+    const newOptions = localValues.options.map((opt: any) => (opt.id === id ? { ...opt, ...updates } : opt));
+    handleChange("options", newOptions);
+  };
+
+  const addOption = () => {
+    const newOption = { id: Math.random().toString(36).substr(2, 5), label: "New Option", value: "new_option" };
+    handleChange("options", [...(localValues.options || []), newOption]);
+  };
+
+  const removeOption = (id: string) => {
+    handleChange(
+      "options",
+      localValues.options.filter((opt: any) => opt.id !== id)
+    );
+  };
+
+  const hasOptions = ["select", "radio", "checkbox"].includes(field.type);
+
+  return (
+    <div className="xl:w-80 w-full bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) rounded-lg flex flex-col overflow-hidden animate-in slide-in-from-right-4 duration-300">
+      <div className="p-4 border-b border-slate-200 dark:border-(--card-border-color) bg-slate-50 dark:bg-(--card-color) flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center">
+            <Settings2 size={14} className="text-primary" />
+          </div>
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">Field Settings</h3>
+        </div>
+        <Badge variant="outline" className="px-1.5 py-0 h-5 text-[10px] font-medium bg-white dark:bg-(--dark-body)">
+          {field.type}
+        </Badge>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-5 space-y-7 dark:bg-(--card-color) custom-scrollbar">
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <Label className="text-[12px] font-semibold text-slate-500 leading-none">Display Label</Label>
+            <Input value={localValues.label} onChange={(e) => handleChange("label", e.target.value)} placeholder="e.g. Full Name" className="h-10 text-[13px] bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-200 dark:border-none" />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-[12px] font-semibold text-slate-500 leading-non">Name</Label>
+            <Input value={localValues.name} onChange={(e) => handleChange("name", e.target.value)} placeholder="e.g. user_full_name" className="h-10 text-[13px] font-mono bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-200 dark:border-none" />
+            <p className="text-[10px] text-slate-400 italic px-1">Unique identifier for payload. Use snake_case.</p>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-[12px] font-semibold text-slate-500 leading-non">Helper / Placeholder</Label>
+            <Input value={localValues.helper_text || ""} onChange={(e) => handleChange("helper_text", e.target.value)} placeholder="Enter your name..." className="h-10 text-[13px] bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color)" />
+          </div>
+
+          <div className="p-4 bg-slate-50/50 dark:bg-(--card-color) rounded-lg border border-slate-100 dark:border-(--card-border-color)">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label className="text-[12px] font-bold">Required Field</Label>
+                <div className="text-[10px] text-slate-400">Mark as mandatory</div>
+              </div>
+              <Switch checked={localValues.required} onCheckedChange={(checked) => handleChange("required", checked)} />
+            </div>
+          </div>
+        </div>
+
+        {hasOptions && (
+          <div className="pt-2 space-y-4">
+            <div className="flex items-center justify-between pb-1">
+              <Label className="text-[12px] font-semibold text-slate-500 leading-non">Selection Options</Label>
+              <Button variant="ghost" size="icon" onClick={addOption} className="h-9 w-9 p-4 text-primary hover:bg-primary/10 bg-primary/10 rounded-lg">
+                <Plus size={16} />
+              </Button>
+            </div>
+
+            <div className="space-y-2.5">
+              {localValues.options?.map((opt: any) => (
+                <div key={opt.id} className="flex gap-2 group animate-in slide-in-from-right-2 duration-200">
+                  <Input value={opt.label} onChange={(e) => handleOptionChange(opt.id, { label: e.target.value, value: e.target.value.toLowerCase().replace(/\s+/g, "_") })} placeholder="Option label" className="h-9 text-xs bg-white dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color) focus:ring-1 focus:ring-primary/20" />
+                  <Button variant="ghost" size="icon" onClick={() => removeOption(opt.id)} className="h-9 w-9 shrink-0 text-slate-500 hover:text-red-500 bg-slate-100 hover:bg-red-50 dark:bg-(--page-body-bg) dark:hover:bg-red-500/10 rounded-lg transition-colors">
+                    <X size={16} />
+                  </Button>
+                </div>
+              ))}
+              {(!localValues.options || localValues.options.length === 0) && <div className="text-center py-6 bg-slate-50/50 dark:bg-slate-800/20 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 text-[10px] text-slate-400 italic">No options defined</div>}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="p-4 bg-slate-50/80 dark:bg-(--card-color) border-t border-slate-200 dark:border-(--card-border-color) text-center backdrop-blur-sm">
+        <p className="text-[10px] text-slate-400 font-medium">Auto-saving configurations to draft...</p>
+      </div>
+    </div>
+  );
+};
+
+export default FieldPropertiesSidebar;

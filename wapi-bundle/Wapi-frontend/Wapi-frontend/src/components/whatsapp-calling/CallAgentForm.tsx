@@ -1,0 +1,195 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Button } from "@/src/elements/ui/button";
+import { cn } from "@/src/lib/utils";
+import { WhatsappCallAgent } from "@/src/types/whatsappCalling";
+import { FormikProvider, useFormik } from "formik";
+import { ArrowLeft, Bot, Check, ChevronLeft, ChevronRight, Code, Loader, Mic, PhoneOff, Save, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "sonner";
+import * as Yup from "yup";
+import StepAIIntelligence from "./steps/StepAIIntelligence";
+import StepConnectivity from "./steps/StepConnectivity";
+import StepFunctions from "./steps/StepFunctions";
+import StepIdentification from "./steps/StepIdentification";
+import StepVoiceSTT from "./steps/StepVoiceSTT";
+
+interface CallAgentFormProps {
+  agent?: WhatsappCallAgent;
+  onSave: (values: any) => Promise<void>;
+  isLoading: boolean;
+}
+
+const CallAgentSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  welcome_message: Yup.string().required("Welcome message is required"),
+  ai_config: Yup.object().shape({
+    api_key: Yup.string().required("AI API Key is required"),
+    prompt: Yup.string().required("System prompt is required"),
+  }),
+  voice_config: Yup.object().shape({
+    api_key: Yup.string().required("Voice API Key is required"),
+  }),
+});
+
+const steps = [
+  { id: "identification", title: "Identification", icon: <User size={18} /> },
+  { id: "ai", title: "AI Intelligence", icon: <Bot size={18} /> },
+  { id: "tools", title: "Functions / Tools", icon: <Code size={18} /> },
+  { id: "voice", title: "Voice & STT", icon: <Mic size={18} /> },
+  { id: "connectivity", title: "Connectivity", icon: <PhoneOff size={18} /> },
+];
+
+const CallAgentForm: React.FC<CallAgentFormProps> = ({ agent, onSave, isLoading }) => {
+  const router = useRouter();
+  const isEditing = !!agent;
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const formik = useFormik({
+    initialValues: {
+      name: agent?.name || "",
+      welcome_message: agent?.welcome_message || "",
+      ai_config: {
+        model_id: agent?.ai_config?.model_id || "gemini-2.0-flash-lite",
+        api_key: agent?.ai_config?.api_key || "",
+        prompt: agent?.ai_config?.prompt || "",
+        training_url: agent?.ai_config?.training_url || "",
+        include_concise_instruction: agent?.ai_config?.include_concise_instruction ?? true,
+      },
+      voice_config: {
+        stt_provider: agent?.voice_config?.stt_provider || "elevenlabs",
+        tts_provider: agent?.voice_config?.tts_provider || "elevenlabs",
+        api_key: agent?.voice_config?.api_key || "",
+      },
+      recording_config: {
+        enable_agent_recording: agent?.recording_config?.enable_agent_recording ?? true,
+        enable_user_recording: agent?.recording_config?.enable_user_recording ?? true,
+        enable_transcription: agent?.recording_config?.enable_transcription ?? true,
+      },
+      hangup_config: {
+        enabled: agent?.hangup_config?.enabled ?? true,
+        trigger_keywords: agent?.hangup_config?.trigger_keywords || ["bye", "goodbye"],
+        farewell_message: agent?.hangup_config?.farewell_message || "Thank you for calling. Goodbye!",
+      },
+      available_functions: agent?.available_functions || [],
+      is_active: agent?.is_active ?? true,
+    },
+    validationSchema: CallAgentSchema,
+    onSubmit: async (values) => {
+      try {
+        await onSave(values);
+      } catch (error: any) {
+        toast.error(error?.data?.message || "Failed to save agent");
+      }
+    },
+  });
+
+  const nextStep = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case 0:
+        return <StepIdentification />;
+      case 1:
+        return <StepAIIntelligence />;
+      case 2:
+        return <StepFunctions />;
+      case 3:
+        return <StepVoiceSTT />;
+      case 4:
+        return <StepConnectivity />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <FormikProvider value={formik}>
+      <div className="mx-auto flex flex-col gap-6 animate-in fade-in duration-500 p-4 sm:p-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-xl border shadow-sm">
+              <ArrowLeft size={20} />
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight">{isEditing ? "Edit Call Agent" : "New AI Call Agent"}</h1>
+              <p className="text-sm text-muted-foreground">Follow the steps to configure your voice assistant</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => router.back()} className="h-10 rounded-lg">
+              Cancel
+            </Button>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) rounded-lg sm:p-6 p-4 overflow-x-auto custom-scrollbar">
+          <div className="flex items-center justify-between mx-auto">
+            {steps.map((step, index) => {
+              const isActive = currentStep === index;
+              const isCompleted = currentStep > index;
+              return (
+                <React.Fragment key={step.id}>
+                  <div className="flex items-center gap-3">
+                    <div className={cn("w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 shrink-0", isActive ? "bg-primary text-white ring-4 ring-primary/10 shadow-lg shadow-primary/20" : isCompleted ? "bg-primary text-white" : "bg-slate-100 dark:bg-(--dark-body) text-slate-400")}>{isCompleted ? <Check size={16} strokeWidth={3} /> : index + 1}</div>
+                    <div className="flex flex-col">
+                      <p className={cn("text-[10px] font-black uppercase tracking-widest leading-none mb-0.5", isActive || isCompleted ? "text-slate-900 dark:text-white" : "text-slate-400")}>Step {index + 1}</p>
+                      <p className={cn("text-[13px] font-bold whitespace-nowrap", isActive ? "text-primary" : isCompleted ? "text-primary" : "text-slate-400")}>{step.title}</p>
+                    </div>
+                  </div>
+                  {index < steps.length - 1 && <div className={cn("flex-1 h-0.5 mx-6 rounded-full min-w-7.5", isCompleted ? "bg-primary" : "bg-slate-100 dark:bg-(--card-border-color)")} />}
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="flex-1 bg-white dark:bg-(--dark-body) border border-slate-200 dark:border-(--card-border-color) rounded-lg overflow-hidden flex flex-col">
+          <div className="flex-1 p-4 sm:p-6">{renderStep()}</div>
+
+          <div className="sm:p-6 p-4 bg-slate-50/80 dark:bg-(--card-color) border-t border-slate-200 dark:border-(--card-border-color) flex items-center justify-between">
+            <Button variant="ghost" onClick={prevStep} disabled={currentStep === 0} className="rounded-lg gap-2 hover:bg-white dark:hover:bg-(--table-hover) shadow-sm border border-slate-200 dark:border-(--card-border-color) ">
+              <ChevronLeft size={18} /> Previous
+            </Button>
+
+            <div className="flex gap-4">
+              {currentStep < steps.length - 1 ? (
+                <Button onClick={nextStep} className="rounded-lg px-4.5 py-5 gap-2 bg-primary text-white hover:opacity-90">
+                  Next Step <ChevronRight size={18} />
+                </Button>
+              ) : (
+                <Button
+                  onClick={async () => {
+                    const errors = await formik.validateForm();
+                    if (Object.keys(errors).length > 0) {
+                      toast.error("Please fill all required fields correctly.");
+
+                      if (errors.name || errors.welcome_message) setCurrentStep(0);
+                      else if (errors.ai_config) setCurrentStep(1);
+                      else if (errors.voice_config) setCurrentStep(3);
+                    } else {
+                      formik.handleSubmit();
+                    }
+                  }}
+                  disabled={isLoading}
+                  className="rounded-lg px-10 bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95"
+                >
+                  {isLoading ? <Loader className="animate-spin" /> : <Save size={18} />}
+                  {isEditing ? "Complete Update" : "Launch Now"}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </FormikProvider>
+  );
+};
+
+export default CallAgentForm;

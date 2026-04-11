@@ -1,0 +1,87 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { AlignLeft, Calendar, CheckCircle2, ChevronDown, CircleDot, Component, Hash, Mail, Phone, TextCursor, Type } from "lucide-react";
+
+const FIELD_TYPES = [
+  {
+    group: "Basic",
+    items: [
+      { type: "heading", label: "Heading", icon: <Type size={16} />, defaultLabel: "Section Heading" },
+      { type: "text", label: "Text Input", icon: <TextCursor size={16} />, defaultLabel: "Enter text" },
+      { type: "textarea", label: "Text Area", icon: <AlignLeft size={16} />, defaultLabel: "Enter long text" },
+      { type: "number", label: "Number", icon: <Hash size={16} />, defaultLabel: "Enter number" },
+    ],
+  },
+  {
+    group: "Contact Info",
+    items: [
+      { type: "email", label: "Email", icon: <Mail size={16} />, defaultLabel: "Email Address" },
+      { type: "phone", label: "Phone", icon: <Phone size={16} />, defaultLabel: "Phone Number" },
+    ],
+  },
+  {
+    group: "Selection",
+    items: [
+      { type: "select", label: "Dropdown", icon: <ChevronDown size={16} />, defaultLabel: "Choose an option", options: [{ id: "1", label: "Option 1", value: "option_1" }] },
+      { type: "radio", label: "Single Choice", icon: <CircleDot size={16} />, defaultLabel: "Select one", options: [{ id: "1", label: "Option 1", value: "option_1" }] },
+      { type: "checkbox", label: "Checkbox", icon: <CheckCircle2 size={16} />, defaultLabel: "Check if applicable" },
+    ],
+  },
+  {
+    group: "Date & Time",
+    items: [{ type: "date", label: "Date", icon: <Calendar size={16} />, defaultLabel: "Select Date" }],
+  },
+];
+
+interface FieldListSidebarProps {
+  onAddField: (field: any) => void;
+}
+
+const FieldListSidebar: React.FC<FieldListSidebarProps> = ({ onAddField }) => {
+  return (
+    <div className="xl:w-72 w-full col-span-4 bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) rounded-lg overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex flex-col gap-8">
+      <div>
+        <div className="flex items-center gap-2 mb-2 bg-slate-50 dark:bg-(--card-color) border-b p-4.5 sticky top-0">
+          <div className="w-6 h-6 rounded bg-primary/10 flex items-center justify-center">
+            <Component size={14} className="text-primary" />
+          </div>
+          <h3 className="text-sm font-bold text-slate-800 dark:text-slate-500">Components</h3>
+        </div>
+
+        <div className="space-y-8 p-3">
+          {FIELD_TYPES.map((group) => (
+            <div key={group.group} className="space-y-2 mb-4!">
+              <h4 className="text-[12px] font-bold text-primary/70 dark:text-primary/50 px-2 tracking-tighter flex items-center gap-2">
+                <div className="w-1 h-1 rounded-full bg-primary/40 shrink-0" />
+                {group.group}
+              </h4>
+              <div className="grid grid-cols-1 gap-2.5">
+                {group.items.map((item) => (
+                  <button
+                    key={item.type}
+                    onClick={() =>
+                      onAddField({
+                        type: item.type,
+                        label: item.defaultLabel,
+                        name: item.defaultLabel.toLowerCase().replace(/\s+/g, "_"),
+                        required: false,
+                        options: (item as any).options || [],
+                      })
+                    }
+                    className="group flex items-center gap-3 px-3 py-3 bg-slate-50/50 dark:bg-(--page-body-bg) border border-slate-200/60 dark:border-(--card-border-color) rounded-lg text-[13px] text-slate-600 dark:text-slate-400 hover:border-primary/40 hover:text-primary hover:shadow-md hover:shadow-primary/5 transition-all duration-300 text-left active:scale-[0.98]"
+                  >
+                    <span className="w-8 h-8 flex items-center justify-center bg-white dark:bg-(--dark-body) rounded-lg group-hover:bg-primary/10 group-hover:text-primary transition-colors shrink-0 border border-slate-100 dark:border-slate-700/50">{item.icon}</span>
+                    <span className="font-bold tracking-tight">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FieldListSidebar;

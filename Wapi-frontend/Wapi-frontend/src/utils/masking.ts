@@ -1,0 +1,18 @@
+export const maskEmail = (email: string): string => {
+  if (!email || !email.includes("@")) return email;
+  const [local, domain] = email.split("@");
+  if (local.length <= 2) return `${"*".repeat(local.length)}@${domain}`;
+  return `${local.substring(0, 2)}${"*".repeat(3)}@${domain}`;
+};
+
+export const maskPhone = (phone: string): string => {
+  if (!phone) return phone;
+  const len = phone.length;
+  if (len <= 2) return "*".repeat(len);
+  return `${"*".repeat(len - 2)}${phone.substring(len - 2)}`;
+};
+
+export const maskSensitiveData = (data: string | undefined | null, type: "email" | "phone", isDemoMode: boolean | undefined): string => {
+  if (!data || !isDemoMode) return data || "";
+  return type === "email" ? maskEmail(data) : maskPhone(data);
+};

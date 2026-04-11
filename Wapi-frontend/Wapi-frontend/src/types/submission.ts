@@ -1,0 +1,68 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface SubmissionField {
+  label: string;
+  value: any;
+}
+
+export interface SubmissionContactInfo {
+  name: string;
+  email: string | null;
+  phone: string;
+}
+
+export interface Submission {
+  _id: string;
+  id?: string;
+  form_id: string;
+  user_id: string;
+  status: "new" | "viewed" | "in_progress" | "contacted" | "qualified" | "closed" | "failed";
+  fields: SubmissionField[];
+  meta: {
+    phone_number: string;
+    phone_number_id: string;
+    waba_id: string;
+    flow_token: string;
+    [key: string]: any;
+  };
+  contact_info?: SubmissionContactInfo;
+  preview?: string;
+  submitted_at: string;
+  viewed_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface SubmissionStats {
+  new: number;
+  viewed: number;
+  in_progress: number;
+  contacted: number;
+  qualified: number;
+  closed: number;
+  failed: number;
+  total: number;
+}
+
+export interface SubmissionListResponse {
+  success: boolean;
+  data: Submission[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalForms: number;
+    limit: number;
+    skip: number;
+  };
+}
+
+export interface SubmissionDetailsResponse {
+  success: boolean;
+  data: {
+    id: string;
+    status: string;
+    phone: string;
+    submitted_at: string;
+    viewed_at: string | null;
+    fields: SubmissionField[];
+  };
+}

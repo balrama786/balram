@@ -1,0 +1,110 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Input } from "@/src/elements/ui/input";
+import { Label } from "@/src/elements/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
+import { Switch } from "@/src/elements/ui/switch";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { cn } from "@/src/lib/utils";
+import { useFormikContext } from "formik";
+import { Info } from "lucide-react";
+
+const FORM_CATEGORIES = [
+  { label: "Sign Up", value: "SIGN_UP" },
+  { label: "Sign In", value: "SIGN_IN" },
+  { label: "Contact Us", value: "CONTACT_US" },
+  { label: "Customer Support", value: "CUSTOMER_SUPPORT" },
+  { label: "Survey", value: "SURVEY" },
+  { label: "Lead Generation", value: "LEAD_GENERATION" },
+  { label: "Appointment Booking", value: "APPOINTMENT_BOOKING" },
+  { label: "Other", value: "OTHER" },
+];
+
+const BasicSetupStep = () => {
+  const { values, errors, touched, setFieldValue, handleBlur } = useFormikContext<any>();
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="space-y-8">
+        <div className="space-y-5">
+          <div className="pb-2 border-b border-slate-100 dark:border-(--card-border-color)">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">General Information</h2>
+            <p className="text-xs text-slate-500">Basic details about your form</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-[13px] font-semibold text-slate-700 dark:text-slate-300">
+                Form Name <span className="text-red-500">*</span>
+              </Label>
+              <Input id="name" name="name" placeholder="e.g. Customer Feedback Form" value={values.name} onChange={(e) => setFieldValue("name", e.target.value)} onBlur={handleBlur} className={cn("h-11 rounded-lg bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color)", touched.name && errors.name ? "border-red-500 focus-visible:ring-red-500" : "")} />
+              {touched.name && errors.name && <p className="text-[11px] font-medium text-red-500">{errors.name as string}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="description" className="text-[13px] font-semibold text-slate-700 dark:text-slate-300">
+                Description
+              </Label>
+              <Textarea id="description" name="description" placeholder="Briefly describe the purpose of this form..." value={values.description} onChange={(e) => setFieldValue("description", e.target.value)} rows={4} className="rounded-lg bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color) resize-none" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category" className="text-[13px] font-semibold text-slate-700 dark:text-slate-300">
+                Category <span className="text-red-500">*</span>
+              </Label>
+              <Select value={values.category} onValueChange={(val) => setFieldValue("category", val)}>
+                <SelectTrigger className="h-11 py-6 rounded-lg bg-slate-50/50 dark:bg-(--page-body-bg) border-slate-200 dark:border-(--card-border-color)">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl border-slate-200 dark:border-(--card-border-color) shadow-xl">
+                  {FORM_CATEGORIES.map((cat) => (
+                    <SelectItem key={cat.value} value={cat.value} className="rounded-lg my-1">
+                      {cat.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-8">
+        <div className="space-y-5">
+          <div className="pb-2 border-b border-slate-100 dark:border-(--card-border-color)">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Platform Integration</h2>
+            <p className="text-xs text-slate-500">How the form interacts with our platform</p>
+          </div>
+
+          <div className="pt-5 space-y-5">
+            <div className="p-5 flex items-center justify-between bg-slate-50/80 dark:bg-(--page-body-bg) rounded-lg border border-slate-100 dark:border-(--card-border-color)">
+              <div className="space-y-1 max-w-[80%]">
+                <div className="flex items-center gap-2 leading-none">
+                  <Label className="text-[13px] font-semibold">Auto-create Contacts</Label>
+                  <Info size={14} className="text-slate-400" />
+                </div>
+                <div className="text-[11px] text-slate-500">Automatically add form submitters to your contact list</div>
+              </div>
+              <Switch checked={values.contact_settings.auto_create_contact} onCheckedChange={(checked) => setFieldValue("contact_settings.auto_create_contact", checked)} />
+            </div>
+
+            <div className="p-5 flex items-center justify-between bg-slate-50/80 dark:bg-(--page-body-bg) rounded-lg border border-slate-100 dark:border-(--card-border-color)">
+              <div className="space-y-1 max-w-[80%]">
+                <div className="flex items-center gap-2 leading-none">
+                  <Label className="text-[13px] font-semibold">Multi-step Flow</Label>
+                  <Info size={14} className="text-slate-400" />
+                </div>
+                <div className="text-[11px] text-slate-500">Enable pagination for longer forms</div>
+              </div>
+              <Switch checked={values.is_multi_step} onCheckedChange={(checked) => setFieldValue("is_multi_step", checked)} />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default BasicSetupStep;

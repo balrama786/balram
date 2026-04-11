@@ -1,0 +1,280 @@
+/* Premium Design System for Wapi Documentation */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Brand Colors */
+  --wp-brand: #10b981;
+  --wp-brand-dark: #065f46;
+  --wp-brand-soft: #ecfdf5;
+
+  /* Neutral Palette */
+  --wp-slate-50: #f8fafc;
+  --wp-slate-100: #f1f5f9;
+  --wp-slate-200: #e2e8f0;
+  --wp-slate-800: #1e293b;
+  --wp-slate-900: #0f172a;
+
+  /* Component Tokens */
+  --wp-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --wp-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --wp-radius-lg: 12px;
+
+  /* Typography */
+  --wp-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --wp-font-heading: 'Outfit', sans-serif;
+}
+
+/* Global Overrides */
+body {
+  font-family: var(--wp-font-body);
+  color: var(--wp-slate-800);
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.main-title,
+.main-sub-title {
+  font-family: var(--wp-font-heading);
+  font-weight: 600;
+  color: var(--wp-slate-900);
+}
+
+/* Sidebar Refinement */
+.nav-sidebar .nav-item .title a {
+  font-family: var(--wp-font-heading);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--wp-slate-800);
+  transition: all 0.2s ease;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  display: block;
+  border-left: 3px solid transparent;
+}
+
+.nav-sidebar .nav-item .title a:hover {
+  background: var(--wp-slate-50);
+  color: var(--wp-brand-dark);
+  padding-left: 20px;
+}
+
+.nav-sidebar .nav-item .title a.active {
+  background: var(--wp-brand-soft) !important;
+  color: var(--wp-brand-dark) !important;
+  border-left-color: var(--wp-brand) !important;
+  font-weight: 600;
+}
+
+/* Alert Components */
+.doc-alert {
+  padding: 20px 24px;
+  margin: 32px 0;
+  border-left: 5px solid;
+  border-radius: var(--wp-radius-lg);
+  font-size: 0.95rem;
+  background: var(--wp-slate-50);
+  box-shadow: var(--wp-shadow-sm);
+}
+
+.doc-alert-title {
+  font-family: var(--wp-font-heading);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.doc-alert-note {
+  border-color: var(--wp-slate-200);
+}
+
+.doc-alert-tip {
+  border-color: var(--wp-brand);
+  background: var(--wp-brand-soft);
+}
+
+.doc-alert-warning {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.doc-alert-important {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+/* Procedural Step Components */
+.doc-steps {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: wp-step;
+}
+
+.doc-step-item {
+  position: relative;
+  padding-left: 54px;
+  margin-bottom: 32px;
+}
+
+.doc-step-item::before {
+  counter-increment: wp-step;
+  content: counter(wp-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  background-color: var(--wp-brand);
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: var(--wp-shadow-sm);
+}
+
+.doc-step-item strong {
+  color: var(--wp-slate-900);
+  font-family: var(--wp-font-heading);
+}
+
+/* Sub-titles & Borders */
+.main-sub-title {
+  border-bottom: 1px solid var(--wp-slate-100);
+  padding-bottom: 12px;
+  margin-top: 48px !important;
+  margin-bottom: 24px !important;
+  font-size: 1.4rem;
+}
+
+.doc-code-inline {
+  background: var(--wp-slate-100);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: #be123c;
+  font-size: 0.9em;
+  border: 1px solid var(--wp-slate-200);
+}
+
+/* Card Enhancements */
+.card {
+  border-radius: var(--wp-radius-lg) !important;
+  border: 1px solid var(--wp-slate-100) !important;
+  box-shadow: var(--wp-shadow-sm) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--wp-shadow-md) !important;
+}
+
+.images-box img {
+  border-radius: var(--wp-radius-lg);
+  box-shadow: var(--wp-shadow-md);
+  border: 1px solid var(--wp-slate-200);
+}
+
+/* Overview Module Grid */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.overview-card {
+  background: #fff;
+  border: 1px solid var(--wp-slate-100);
+  border-radius: var(--wp-radius-lg);
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.overview-card:hover {
+  border-color: var(--wp-brand);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(16, 185, 129, 0.15);
+}
+
+.overview-card-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--wp-brand-soft);
+  color: var(--wp-brand);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.overview-card-title {
+  font-family: var(--wp-font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--wp-slate-900);
+  margin-bottom: 12px;
+}
+
+.overview-card-content {
+  font-size: 0.925rem;
+  color: var(--wp-slate-800);
+  line-height: 1.6;
+}
+
+.overview-card-content strong {
+  color: var(--wp-slate-900);
+}
+
+/* Documentation Action Buttons */
+.doc-actions {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--wp-slate-100);
+  display: flex;
+  justify-content: center;
+}
+
+.btn-wp-primary {
+  background: var(--wp-brand);
+  color: white !important;
+  font-family: var(--wp-font-heading);
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.btn-wp-primary:hover {
+  background: var(--wp-brand-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-wp-primary i {
+  font-size: 1.2rem;
+}

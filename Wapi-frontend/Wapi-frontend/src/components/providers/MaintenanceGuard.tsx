@@ -1,0 +1,33 @@
+"use client";
+
+import { useAppSelector } from "@/src/redux/hooks";
+import { MaintenanceGuardProps } from "@/src/types/components";
+import MaintenancePage from "../maintenance/MaintenancePage";
+
+const MaintenanceGuard = ({ children }: MaintenanceGuardProps) => {
+  const { 
+    maintenance_mode, 
+    maintenance_title, 
+    maintenance_message, 
+    maintenance_image_url,
+    maintenance_allowed_ips,
+    client_ip
+  } = useAppSelector((state) => state.setting);
+
+  const toBoolean = (value: unknown): boolean => {
+    if (typeof value === "boolean") return value;
+    if (typeof value === "string") return value.toLowerCase() === "true";
+    return false;
+  };
+
+  const isMaintenanceMode = toBoolean(maintenance_mode);
+  const isAllowed = Array.isArray(maintenance_allowed_ips) && maintenance_allowed_ips.includes(client_ip || "");
+
+  if (isMaintenanceMode && !isAllowed) {
+    return <MaintenancePage title={maintenance_title || "Under Maintenance"} message={maintenance_message || "We are performing some scheduled maintenance. Please check back soon."} imageUrl={maintenance_image_url || ""} />;
+  }
+
+  return <>{children}</>;
+};
+
+export default MaintenanceGuard;

@@ -1,0 +1,34 @@
+"use client";
+
+import React from "react";
+import { formatCurrencyValue } from "@/src/utils/currencyValue";
+import { useExchangeRate } from "@/src/hooks/useCurrencyConverter";
+
+interface CurrencyValueProps {
+  amount: number;
+  fromCode: string;
+  className?: string;
+  fallbackSymbol?: string;
+}
+
+const CurrencyValue: React.FC<CurrencyValueProps> = ({ amount, fromCode, className, fallbackSymbol }) => {
+  const { selectedCurrency, rate, isLoading } = useExchangeRate(fromCode);
+
+  if (!selectedCurrency) {
+    return (
+      <span className={className}>
+        {fallbackSymbol || ""} {amount}
+      </span>
+    );
+  }
+
+  if (isLoading || rate === null) {
+    return <span className="inline-block w-12 h-4 bg-slate-100 animate-pulse rounded-md align-middle" />;
+  }
+
+  const converted = amount * rate;
+
+  return <span className={className}>{formatCurrencyValue(converted, selectedCurrency.symbol, selectedCurrency.decimal_number)}</span>;
+};
+
+export default CurrencyValue;

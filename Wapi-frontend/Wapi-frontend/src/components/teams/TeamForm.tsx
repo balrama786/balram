@@ -1,0 +1,167 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Button } from "@/src/elements/ui/button";
+import { Input } from "@/src/elements/ui/input";
+import { Label } from "@/src/elements/ui/label";
+import { Switch } from "@/src/elements/ui/switch";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { useCreateTeamMutation, useGetPermissionsQuery, useGetTeamByIdQuery, useUpdateTeamMutation } from "@/src/redux/api/teamApi";
+import CommonHeader from "@/src/shared/CommonHeader";
+import { cn } from "@/src/lib/utils";
+import { Info, Save, Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import PermissionPicker from "./PermissionPicker";
+
+interface TeamFormProps {
+  id?: string;
+  isEdit?: boolean;
+}
+
+const TeamForm = ({ id, isEdit = false }: TeamFormProps) => {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState<"active" | "inactive">("active");
+  const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fetch permissions
+  const { data: permissionsRes, isLoading: isLoadingPermissions } = useGetPermissionsQuery();
+  const permissions = permissionsRes?.data || [];
+
+  // Fetch team data if editing
+  const { data: teamRes, isLoading: isLoadingTeam } = useGetTeamByIdQuery(id!, { skip: !isEdit || !id });
+
+  const [createTeam] = useCreateTeamMutation();
+  const [updateTeam] = useUpdateTeamMutation();
+
+  useEffect(() => {
+    if (isEdit && teamRes?.data) {
+      setName(teamRes.data.name);
+      setDescription(teamRes.data.description || "");
+      setStatus(teamRes.data.status);
+      setSelectedPermissions(teamRes.data.permissions || []);
+    }
+  }, [isEdit, teamRes]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("TeamForm: handleSubmit triggered");
+    if (!name.trim()) {
+      toast.error("Team name is required");
+      return;
+    }
+    if (selectedPermissions.length === 0) {
+      toast.error("Please select at least one permission");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        name: name.trim(),
+        description: description.trim(),
+        status,
+        permissions: selectedPermissions,
+      };
+
+      if (isEdit && id) {
+        await updateTeam({ id, body: payload }).unwrap();
+        toast.success("Team updated successfully");
+      } else {
+        await createTeam(payload).unwrap();
+        toast.success("Team created successfully");
+      }
+      router.push("/teams");
+    } catch (error: any) {
+      toast.error(error?.data?.message || `Failed to ${isEdit ? "update" : "create"} team`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const isLoading = isLoadingPermissions || (isEdit && isLoadingTeam);
+
+  return (
+    <div className="sm:p-8 p-4 space-y-8 min-h-screen bg-slate-50/30 dark:bg-transparent animate-in fade-in duration-500">
+      <form id="team-form" onSubmit={handleSubmit} className="mx-auto space-y-8">
+        <CommonHeader
+          title={isEdit ? "Edit Team Configuration" : "Establish New Team"}
+          description={isEdit ? `Modifying settings and access levels for '${name}'.` : "Define your team structure and assign granular access controls for your agents."}
+          backBtn={true}
+          isLoading={isLoading}
+          rightContent={
+            <div className="flex items-center gap-4 justify-center animate-in slide-in-from-bottom-5 duration-500">
+              <Button type="button" variant="outline" onClick={() => router.push("/teams")} className="h-12 px-4.5! py-5 rounded-lg border border-slate-200 dark:border-(--card-border-color) font-bold text-slate-600 dark:text-gray-500 bg-white hover:bg-slate-50 transition-all" disabled={isSubmitting}>
+                Cancel
+              </Button>
+              <Button type="submit" form="team-form" className="h-12 px-12 bg-primary hover:bg-primary text-white rounded-lg shadow-lg shadow-primary/20 font-bold transition-all active:scale-95 flex items-center gap-2" disabled={isSubmitting || isLoading}>
+                {isSubmitting ? <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save size={18} />}
+                {isEdit ? "Save Changes" : "Create Team"}
+              </Button>
+            </div>
+          }
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column: Basic Info */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-white dark:bg-(--card-color) sm:p-6 p-4 rounded-lg border border-slate-200 dark:border-(--card-border-color) shadow-sm space-y-6 sticky top-8">
+              <div className="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-(--card-border-color)">
+                <div className="p-2 bg-primary/10 text-primary rounded-lg">
+                  <Settings size={20} />
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">Identity & Status</h3>
+              </div>
+
+              <div className="space-y-4">
+                <div className="space-y-2 flex flex-col">
+                  <Label htmlFor="name" className="text-sm font-bold text-slate-700 dark:text-gray-300">
+                    Team Name <span className="text-red-500">*</span>
+                  </Label>
+                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Sales Support" className="h-12 bg-slate-100/50 dark:bg-(--page-body-bg) border-none rounded-lg focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 font-medium" required />
+                </div>
+
+                <div className="space-y-2 flex flex-col">
+                  <Label htmlFor="description" className="text-sm font-bold text-slate-700 dark:text-gray-300">
+                    Description
+                  </Label>
+                  <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Briefly describe this team's focus..." className="min-h-32 bg-slate-100/50 dark:bg-(--page-body-bg) border-none rounded-lg focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 font-medium resize-none" />
+                </div>
+
+                <div className={cn("flex items-center justify-between flex-wrap gap-3 p-4 bg-slate-50 dark:bg-(--page-body-bg) rounded-lg border border-slate-100 dark:border-none group transition-all hover:border-primary/20", isLoading ? "cursor-not-allowed" : "cursor-pointer")}>
+                  <div className="space-y-0.5">
+                    <Label className={cn("text-sm font-bold text-slate-900 dark:text-white", isLoading ? "cursor-not-allowed" : "cursor-pointer")}>Status</Label>
+                    <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Visible in directories</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className={`text-xs font-bold uppercase tracking-wider ${status === "active" ? "text-primary" : "text-slate-400"}`}>{status}</span>
+                    <Switch checked={status === "active"} onCheckedChange={(val) => setStatus(val ? "active" : "inactive")} disabled={isLoading} className="data-[state=checked]:bg-primary shadow-xs" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-blue-50/50 dark:bg-blue-500/5 rounded-xl border border-blue-100/50 dark:border-blue-950 text-blue-600">
+                  <Info size={16} className="shrink-0 mt-0.5" />
+                  <p className="text-xs font-semibold leading-relaxed">Permissions selected here will define the baseline access for all agents assigned to this team.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            <div className="bg-white dark:bg-(--card-color) sm:p-6 p-4 rounded-lg border border-slate-200 dark:border-(--card-border-color) space-y-8">
+              <PermissionPicker permissions={permissions} selectedSlugs={selectedPermissions} onChange={setSelectedPermissions} />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default TeamForm;

@@ -1,0 +1,66 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "@/src/redux/hooks";
+import { setRTL } from "@/src/redux/reducers/layoutSlice";
+import { languageApi } from "@/src/redux/api/languageApi";
+import { loadTranslations } from "@/src/utils/i18nLoader";
+
+const LANGUAGE_STORAGE_KEY = "selected_language";
+
+export const useLanguageInitializer = (): boolean => {
+  const { i18n } = useTranslation();
+  const dispatch = useAppDispatch();
+  const [isLanguageReady, setIsLanguageReady] = useState(false);
+
+  const [getAllLanguages] = languageApi.useLazyGetAllLanguagesQuery();
+  const [getTranslations] = languageApi.useLazyGetTranslationsQuery();
+
+  useEffect(() => {
+    const initializeLanguage = async () => {
+      const savedLocale = localStorage.getItem(LANGUAGE_STORAGE_KEY) || "en";
+
+      try {
+        const languagesResult = await getAllLanguages({ status: true }).unwrap();
+        const activeLanguages = languagesResult?.data?.languages || [];
+        const currentLanguage = activeLanguages.find((lang) => lang.locale === savedLocale);
+
+        if (currentLanguage) {
+          try {
+            const translationResult = await getTranslations(currentLanguage._id).unwrap();
+            if (translationResult?.success && translationResult.data) {
+              loadTranslations(savedLocale, translationResult.data);
+            }
+          } catch {
+            if (savedLocale !== "en") {
+              await i18n.changeLanguage("en");
+              dispatch(setRTL(false));
+              return;
+            }
+          }
+
+          if (i18n.language !== savedLocale) {
+            await i18n.changeLanguage(savedLocale);
+          }
+
+          dispatch(setRTL(currentLanguage.is_rtl));
+        } else {
+          if (savedLocale !== "en") {
+            await i18n.changeLanguage("en");
+          }
+          dispatch(setRTL(false));
+        }
+      } catch {
+        dispatch(setRTL(false));
+      } finally {
+        setIsLanguageReady(true);
+      }
+    };
+
+    initializeLanguage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return isLanguageReady;
+};

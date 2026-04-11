@@ -1,0 +1,175 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Badge } from "@/src/elements/ui/badge";
+import { Button } from "@/src/elements/ui/button";
+import { Input } from "@/src/elements/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/elements/ui/select";
+import { useReactFlow } from "@xyflow/react";
+import { Plus, X, Zap } from "lucide-react";
+import { useState } from "react";
+import { BaseNode } from "./BaseNode";
+import { NodeField } from "./NodeField";
+
+export function TriggerNode({ data, id }: any) {
+  const { setNodes } = useReactFlow();
+  const [keyword, setKeyword] = useState("");
+  const [touched, setTouched] = useState(false);
+
+  const keywordsArray = Array.isArray(data.keywords) ? data.keywords : [];
+
+  const errors: string[] = [];
+  if (touched || data.forceValidation) {
+    if (!data.contactType) errors.push("Contact type is required");
+    if (!data.triggerType) errors.push("Trigger type is required");
+    if (data.triggerType !== "any message" && data.triggerType !== "order received" && (!keywordsArray || keywordsArray.length === 0)) {
+      errors.push("Trigger keywords are required");
+    }
+  }
+
+  const updateNodeData = (field: string, value: any) => {
+    if (!touched) setTouched(true);
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === id
+          ? { ...node, data: { ...node.data, [field]: value } }
+          : node,
+      ),
+    );
+  };
+
+  const addKeyword = () => {
+    if (keyword.trim()) {
+      const currentKeywords = Array.isArray(data.keywords) ? data.keywords : [];
+      if (!currentKeywords.includes(keyword.trim())) {
+        updateNodeData("keywords", [...currentKeywords, keyword.trim()]);
+      }
+      setKeyword("");
+    }
+  };
+
+  const removeKeyword = (kw: string) => {
+    const currentKeywords = Array.isArray(data.keywords) ? data.keywords : [];
+    updateNodeData(
+      "keywords",
+      currentKeywords.filter((k: string) => k !== kw),
+    );
+  };
+
+  return (
+    <BaseNode
+      id={id}
+      title="Start Trigger"
+      icon={<Zap size={18} />}
+      iconBgColor="bg-orange-100"
+      iconColor="text-orange-600"
+      borderColor="border-orange-200"
+      handleColor="bg-purple-500!"
+      errors={errors}
+      showInHandle={false}
+      headerRight={
+        <Badge variant="secondary" className="bg-purple-100 text-purple-700 dark:bg-(--dark-sidebar) dark:text-white dark:hover:bg-(--table-hover) hover:bg-purple-100 text-[10px] h-4 px-1.5">
+          Entry Point
+        </Badge>
+      }
+    >
+      <NodeField label="Contact Type" required error={(touched || data.forceValidation) && !data.contactType ? "Please select a contact type" : ""}>
+        <Select value={data.contactType || ""} onValueChange={(value) => updateNodeData("contactType", value)} onOpenChange={() => setTouched(true)}>
+          <SelectTrigger className={`h-9 text-sm bg-(--input-color) dark:bg-(--page-body-bg) dark:hover:bg-(--page-body-bg) dark:focus:bg-(--page-body-bg) focus:bg-(--input-color) focus-visible:shadow-none ${!data.contactType ? "border-gray-200 dark:border-(--card-border-color)" : ""}`}>
+            <SelectValue placeholder="Select contact type" />
+          </SelectTrigger>
+          <SelectContent className="dark:bg-(--page-body-bg) bg-(--input-color)">
+            <SelectItem value="Lead" className="dark:hover:bg-(--card-color)">
+              Lead
+            </SelectItem>
+            <SelectItem className="dark:hover:bg-(--card-color)" value="Customer">
+              Customer
+            </SelectItem>
+            <SelectItem className="dark:hover:bg-(--card-color)" value="Contact">
+              Contact
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </NodeField>
+
+      <NodeField label="Trigger Type" required error={(touched || data.forceValidation) && !data.triggerType ? "Please select a trigger type" : ""}>
+        <Select value={data.triggerType || ""} onValueChange={(value) => updateNodeData("triggerType", value)} onOpenChange={() => setTouched(true)}>
+          <SelectTrigger className={`h-9 text-sm bg-(--input-color) dark:hover:bg-(--page-body-bg) dark:focus:bg-(--page-body-bg) dark:bg-(--page-body-bg) focus:bg-(--input-color) focus-visible:shadow-none ${!data.triggerType ? "border-gray-200  focus:bg-(--input-color) dark:bg-(--page-body-bg) dark:hover:bg-(--page-body-bg) dark:border-(--card-border-color)" : ""}`}>
+            <SelectValue placeholder="Select trigger type" />
+          </SelectTrigger>
+          <SelectContent className="dark:bg-(--page-body-bg)">
+            <SelectItem value="on exact match" className="dark:hover:bg-(--card-color)">
+              on exact match
+            </SelectItem>
+            <SelectItem value="contains keyword" className="dark:hover:bg-(--card-color)">
+              contains keyword
+            </SelectItem>
+            <SelectItem value="starts with" className="dark:hover:bg-(--card-color)">
+              starts with
+            </SelectItem>
+            <SelectItem value="any message" className="dark:hover:bg-(--card-color)">
+              any message
+            </SelectItem>
+            <SelectItem value="order received" className="dark:hover:bg-(--card-color)">
+              order received
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </NodeField>
+
+      {data.triggerType !== "any message" && data.triggerType !== "order received" && (
+        <>
+          <NodeField label="Trigger Keywords" required description="This flow will be triggered when a user sends any of these keywords" error={(touched || data.forceValidation) && data.triggerType !== "any message" && data.triggerType !== "order received" && (!keywordsArray || keywordsArray.length === 0) ? "Trigger keywords are required" : ""}>
+            <div className="flex gap-2">
+              <Input value={keyword} onChange={(e) => setKeyword(e.target.value)} onFocus={() => setTouched(true)} onKeyDown={(e) => e.key === "Enter" && addKeyword()} placeholder="Add a keyword..." className={`h-9 text-sm bg-(--input-color) dark:focus:bg-(--page-body-bg) focus:bg-(--input-color) ${!data.keywords || data.keywords.length === 0 ? "border-gray-200 dark:border-(--card-border-color)" : ""}`} />
+              <Button onClick={addKeyword} size="icon" className="h-9 w-9 bg-primary hover:bg-primary dark:text-white">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+
+            <div className="mt-2 flex flex-wrap gap-1">
+              {keywordsArray.length > 0 ? (
+                keywordsArray.map((kw: string) => (
+                  <Badge key={kw} variant="secondary" className="flex items-center gap-1 bg-purple-50 dark:bg-(--dark-sidebar) dark:border-(--card-border-color) dark:hover:bg-(--table-hover) text-primary border-purple-100">
+                    {kw}
+                    <X size={12} className="cursor-pointer" onClick={() => removeKeyword(kw)} />
+                  </Badge>
+                ))
+              ) : (
+                <div className="w-full py-3 border border-dashed dark:bg-(--dark-sidebar) dark:border-(--card-border-color) border-gray-200 rounded-lg flex items-center justify-center bg-gray-50/50">
+                  <span className="text-[11px] text-gray-400">No keywords added yet.</span>
+                </div>
+              )}
+            </div>
+          </NodeField>
+
+          <NodeField label="Suggestions" labelClassName="text-[10px] font-medium text-gray-400 uppercase tracking-wider">
+            <div className="flex flex-wrap gap-1">
+              {["hello", "hi", "start", "help", "info", "menu", "order", "support", "contact"].map((s) => (
+                <Badge
+                  key={s}
+                  variant="outline"
+                  className="cursor-pointer text-[10px] h-5 px-1.5 hover:bg-gray-100 dark:hover:bg-(--table-hover) transition-colors"
+                  onClick={() => {
+                    const currentKeywords = Array.isArray(data.keywords) ? data.keywords : [];
+                    if (!currentKeywords.includes(s)) {
+                      updateNodeData("keywords", [...currentKeywords, s]);
+                    }
+                  }}
+                >
+                  {s}
+                </Badge>
+              ))}
+            </div>
+          </NodeField>
+        </>
+      )}
+    </BaseNode>
+  );
+}

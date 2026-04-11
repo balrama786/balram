@@ -1,0 +1,43 @@
+import { ChatMessage, MessageGroupProps } from "@/src/types/components/chat";
+import React from "react";
+import CollapsibleSystemMessages from "./CollapsibleSystemMessages";
+import MessageItem from "./MessageItem";
+
+const MessageGroup: React.FC<MessageGroupProps> = ({ group, onImageClick, isWindowExpired }) => {
+  const partitionedMessages = group.messages.reduce((acc, msg, i) => {
+    if (i === 0) {
+      acc.push([msg]);
+      return acc;
+    }
+    const lastGroup = acc[acc.length - 1];
+    const lastMsg = lastGroup[lastGroup.length - 1];
+
+    const isLastSystem = lastMsg.messageType === "system_messages";
+    const isCurrSystem = msg.messageType === "system_messages";
+
+    if (isLastSystem && isCurrSystem) {
+      lastGroup.push(msg);
+    } else {
+      acc.push([msg]);
+    }
+    return acc;
+  }, [] as ChatMessage[][]);
+
+  return (
+    <div className="flex flex-col space-y-0.5 gap-2">
+      {partitionedMessages.map((subGroup, subIndex) => {
+        const isSystemStreak = subGroup[0].messageType === "system_messages";
+
+        if (isSystemStreak && subGroup.length > 2) {
+          return <CollapsibleSystemMessages key={`sys-group-${subIndex}`} messages={subGroup} />;
+        }
+
+        return subGroup.map((message) => (
+          <MessageItem key={message.id} message={message} onImageClick={onImageClick} isWindowExpired={isWindowExpired} />
+        ));
+      })}
+    </div>
+  );
+};
+
+export default MessageGroup;

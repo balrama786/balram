@@ -1,0 +1,7 @@
+
+@layer base {
+  .page-body-wrapper, .close-sidebar .open ,.close-icon svg { 
+    /* @apply hidden; */
+  }
+
+}

@@ -1,0 +1,225 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { Button } from "@/src/elements/ui/button";
+import { cn } from "@/src/lib/utils";
+import { useCreateFormMutation, useGetFormByIdQuery, useUpdateFormMutation } from "@/src/redux/api/formBuilderApi";
+import { FormikProvider, useFormik } from "formik";
+import { ArrowLeft, Check, ChevronLeft, ChevronRight, Layout, Loader2, Save, Settings } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/redux/store";
+import { toast } from "sonner";
+import * as Yup from "yup";
+import BasicSetupStep from "./steps/BasicSetupStep";
+import CustomizationStep from "./steps/CustomizationStep";
+import FormDesignerStep from "./steps/FormDesignerStep";
+import Can from "../shared/Can";
+
+interface FormBuilderWizardProps {
+  mode: "create" | "edit";
+  id?: string;
+}
+
+const FormSchema = Yup.object().shape({
+  name: Yup.string().required("Form name is required"),
+  category: Yup.string().required("Category is required"),
+  waba_id: Yup.string().required("WhatsApp Account is required"),
+});
+
+const steps = [
+  { id: "basic", title: "Basic Setup", icon: <Settings size={18} /> },
+  { id: "customization", title: "Customization", icon: <Settings size={18} /> },
+  { id: "designer", title: "Form Designer", icon: <Layout size={18} /> },
+];
+
+const FormBuilderWizard: React.FC<FormBuilderWizardProps> = ({ mode, id }) => {
+  const router = useRouter();
+  const [currentStep, setCurrentStep] = useState(0);
+  const { data: formData, isLoading: isFetching } = useGetFormByIdQuery(id as string, { skip: mode === "create" || !id });
+  const selectedWorkspace = useSelector((state: RootState) => state.workspace.selectedWorkspace);
+  const [createForm, { isLoading: isCreating }] = useCreateFormMutation();
+  const [updateForm, { isLoading: isUpdating }] = useUpdateFormMutation();
+
+  const isSaving = isCreating || isUpdating;
+
+  const formik = useFormik({
+    initialValues: {
+      waba_id: "",
+      name: "",
+      description: "",
+      category: "LEAD_GENERATION",
+      is_active: true,
+      is_multi_step: false,
+      fields: [],
+      appearance: {
+        theme_color: "#3B82F6",
+        show_branding: false,
+      },
+      submit_settings: {
+        button_text: "Submit",
+        success_message: "Thank you for your submission!",
+      },
+      contact_settings: {
+        auto_create_contact: false,
+      },
+    },
+    validationSchema: FormSchema,
+    onSubmit: async (values) => {
+      try {
+        if (mode === "create") {
+          await createForm(values).unwrap();
+          toast.success("Form created successfully");
+        } else {
+          await updateForm({ id: id as string, body: values }).unwrap();
+          toast.success("Form updated successfully");
+        }
+        router.push("/form_builder");
+      } catch (error: any) {
+        toast.error(error?.data?.message || "Failed to save form");
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (formData?.data) {
+      // Deeper merge for nested objects to ensure defaults are preserved
+      const fetchedData = formData.data;
+      formik.setValues({
+        ...formik.initialValues,
+        ...fetchedData,
+        appearance: {
+          ...formik.initialValues.appearance,
+          ...(fetchedData.appearance || {}),
+        },
+        submit_settings: {
+          ...formik.initialValues.submit_settings,
+          ...(fetchedData.submit_settings || {}),
+        },
+        contact_settings: {
+          ...formik.initialValues.contact_settings,
+          ...(fetchedData.contact_settings || {}),
+        },
+      } as any);
+    } else if (mode === "create" && selectedWorkspace?.waba_id && !formik.values.waba_id) {
+      formik.setFieldValue("waba_id", selectedWorkspace.waba_id);
+    }
+  }, [formData, selectedWorkspace, mode]);
+
+  const nextStep = async () => {
+    if (currentStep === 0) {
+      const errors = await formik.validateForm();
+      if (errors.name || errors.category || errors.waba_id) {
+        formik.setFieldTouched("name", true);
+        formik.setFieldTouched("category", true);
+        formik.setFieldTouched("waba_id", true);
+        
+        if (errors.waba_id) {
+          toast.error("WhatsApp Account (WABA) is missing. Please ensure your workspace is correctly set up.");
+        } else {
+          toast.error("Please fill required fields");
+        }
+        return;
+      }
+    }
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
+
+  if (isFetching) {
+    return (
+      <div className="flex h-[60vh] items-center justify-center">
+        <Loader2 className="animate-spin text-primary" size={40} />
+      </div>
+    );
+  }
+
+  return (
+    <FormikProvider value={formik}>
+      <div className="mx-auto flex flex-col gap-6 animate-in fade-in duration-500 p-4 sm:p-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-xl border shadow-sm">
+              <ArrowLeft size={20} />
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight">{mode === "create" ? "Create New Form" : "Edit Form"}</h1>
+              <p className="text-sm text-muted-foreground">Build interactive WhatsApp forms and Meta Flows</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => router.back()} className="h-10 rounded-lg">
+              Cancel
+            </Button>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) rounded-lg p-6 shadow-sm overflow-x-auto custom-scrollbar">
+          <div className="flex items-center justify-between mx-auto">
+            {steps.map((step, index) => {
+              const isActive = currentStep === index;
+              const isCompleted = currentStep > index;
+              return (
+                <React.Fragment key={step.id}>
+                  <div className="flex items-center gap-3">
+                    <div className={cn("w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 shrink-0", isActive ? "bg-primary text-white ring-4 ring-primary/10 shadow-lg shadow-primary/20" : isCompleted ? "bg-primary text-white" : "bg-slate-100 dark:bg-(--dark-body) text-slate-400")}>{isCompleted ? <Check size={16} strokeWidth={3} /> : index + 1}</div>
+                    <div className="flex flex-col">
+                      <p className={cn("text-[10px] font-black uppercase tracking-widest leading-none mb-1", isActive || isCompleted ? "text-slate-900 dark:text-white" : "text-slate-400")}>Step {index + 1}</p>
+                      <p className={cn("text-[13px] font-bold whitespace-nowrap", isActive ? "text-primary" : isCompleted ? "text-primary" : "text-slate-400")}>{step.title}</p>
+                    </div>
+                  </div>
+                  {index < steps.length - 1 && <div className={cn("flex-1 h-0.5 mx-6 rounded-full min-w-12.5", isCompleted ? "bg-primary" : "bg-slate-100 dark:bg-(--dark-body)")} />}
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className={`xl:flex-1 flex-[unset] overflow-hidden flex flex-col ${currentStep !== 2 ? "bg-white dark:bg-(--card-color) border border-slate-200 dark:border-(--card-border-color) rounded-lg shadow-sm" : ""}`}>
+          <div className={`xl:flex-1 flex-[unset] ${currentStep !== 2 ? "p-5" : ""} xl:min-h-112.5 min-h-0`}>
+            {currentStep === 0 && <BasicSetupStep />}
+            {currentStep === 1 && <CustomizationStep />}
+            {currentStep === 2 && <FormDesignerStep />}
+          </div>
+
+          <div className={`sm:p-6 p-4 bg-slate-50/80 dark:bg-(--card-color) border-t border-slate-200 dark:border-(--card-border-color) flex items-center justify-between ${currentStep == 2 ? "bg-white dark:bg-(--page-body-bg) border border-slate-200 dark:border-(--card-border-color) rounded-lg shadow-sm" : ""}`}>
+            <Button variant="ghost" onClick={prevStep} disabled={currentStep === 0} className="rounded-lg gap-2 hover:bg-white dark:hover:bg-(--table-hover) shadow-sm border dark:bg-(--card-color) dark:border-none border-slate-200 hover:border-slate-200">
+              <ChevronLeft size={18} /> Previous
+            </Button>
+
+            <div className="flex gap-4">
+              {currentStep < steps.length - 1 ? (
+                <Button onClick={nextStep} className="rounded-lg px-8 gap-2 bg-primary text-white hover:opacity-90">
+                  Next Step <ChevronRight size={18} />
+                </Button>
+              ) : (
+                <Can permission={mode === "create" ? "create.form_builder" : "update.form_builder"}>
+                  <Button
+                    onClick={async () => {
+                      const errors = await formik.validateForm();
+                      if (Object.keys(errors).length > 0) {
+                        formik.handleSubmit(); // This will trigger touched and show errors in UI where applicable
+                        toast.error("Please check required fields: " + Object.keys(errors).join(", "));
+                      } else {
+                        formik.handleSubmit();
+                      }
+                    }}
+                    disabled={isSaving}
+                    className="rounded-lg px-10 bg-primary hover:bg-primary/90 text-white gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95 font-bold"
+                  >
+                    {isSaving ? <Loader2 className="animate-spin" /> : <Save size={18} />}
+                    {mode === "create" ? "Create Form" : "Save Changes"}
+                  </Button>
+                </Can>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </FormikProvider>
+  );
+};
+
+export default FormBuilderWizard;
